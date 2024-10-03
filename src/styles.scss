@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "@fontsource/dm-sans";
-@import "styles/index.scss";
+@import "../styles/index.scss";
 
 body {
     font-family: "DM Sans", sans-serif;
@@ -8,9 +8,95 @@ body {
 }
 
 a {
+    cursor: pointer;
     color: inherit;
     text-decoration: none;
     &:hover {
         color: inherit;
     }
+}
+
+// primeng overwrites
+
+.p-dataview {
+    background: transparent;
+    .p-dataview-content {
+        background: transparent !important;
+    }
+}
+
+.p-button-link {
+    padding: 0 !important;
+    color: var(--color-blue-500) !important;
+    text-decoration: underline;
+    .p-button-label {
+        font-weight: normal !important;
+    }
+}
+
+.toggle-button {
+    align-self: flex-end !important;
+    margin: 10px 20px !important;
+    background-color: var(--color-blue-400) !important;
+    color: var(--color-white) !important;
+    height: 30px !important;
+    width: 30px !important;
+    span {
+        font-size: 12px !important;
+    }
+}
+
+.table-paginator-container {
+    .p-paginator {
+        background-color: transparent;
+    }
+}
+
+// style for menu item links in navbar.compoennt.ts created programmatically (DO NOT DELETE)
+.menu-item-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+}
+
+.areacode-dropdown .p-dropdown {
+    height: 100%;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-color: #ced4da;
+    border-right-width: 0.5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+// .notification-toast .p-toast {
+//     width: 100%;
+//     position: fixed;
+//     top: 80px;
+// }
+@media screen and (max-width: 720px) {
+    // stick the dialog to the bottom on small viewports
+    .p-dialog {
+        margin: 0 !important;
+    }
+}
+
+.mobile {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .mobile {
+        display: block !important;
+    }
+
+    .desktop {
+        display: none !important;
+    }
+}
+
+.cal-week-view .cal-hour-segment::after {
+    content: "" !important;
 }

@@ -1,0 +1,33 @@
+// this is meant to be reused acrosss all agent pages for consistent heading styling
+.header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    h1 {
+        margin: 0;
+        color: var(--color-gray-600);
+        &.current {
+            color: var(--color-gray-800);
+        }
+    }
+
+    i {
+        font-size: var(--font-size-heading-xl);
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-2xl) var(--spacing-md) var(--spacing-md)
+        var(--spacing-md);
+}
+
+@media screen and (max-width: 768px) {
+    .header-container {
+        gap: var(--spacing-2xs);
+        h1 {
+            font-size: var(--font-size-heading-xl);
+        }
+    }
+}

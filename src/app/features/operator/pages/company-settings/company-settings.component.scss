@@ -1,0 +1,67 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+}
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-xs);
+    h1 {
+        margin: 0;
+        color: var(--color-gray-600);
+        &.current {
+            color: var(--color-gray-800);
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header-container {
+        gap: var(--spacing-2xs);
+        h1 {
+            font-size: var(--font-size-heading-xl);
+        }
+    }
+}
+
+
+.main-content-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-base);
+    overflow: hidden;
+    box-shadow: var(--shadow-base-1);
+    .nav-container {
+        display: flex;
+        flex-direction: row;
+        background-color: var(--color-gray-100);
+        flex-wrap: wrap;
+        overflow-x: auto;
+        a {
+            color: var(--color-gray-600);
+            font-size: var(--font-size-body);
+            border-top-width: 5px;
+            border-top-style: solid;
+            border-top-color: transparent;
+            padding: var(--spacing-xs) var(--spacing-md);
+            transition: all 400ms;
+            flex-shrink: 0;
+            &.active {
+                color: var(--color-blue-500);
+                border-top-color: var(--color-blue-500);
+                background-color: var(--color-blue-gray);
+            }
+            ::ng-deep .p-badge {
+                background-color: var(--color-blue-500);
+                margin-left: var(--spacing-2xs);
+            }
+        }
+    }
+}
