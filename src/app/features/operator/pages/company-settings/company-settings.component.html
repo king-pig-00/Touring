@@ -1,1 +1,27 @@
-<router-outlet></router-outlet>
+<div class="container">
+    <div class="header-container">
+        <h1 class="current">Company Settings</h1>
+    </div>
+
+    <div class="main-content-container">
+        <div class="nav-container">
+            <!-- <ng-container
+                *ngIf="
+                    companySettingsNavOptions$
+                        | async as companySettingsNavOptions
+                "
+            > -->
+                <ng-container *ngFor="let option of companySettingsNavOptions">
+                    <a
+                        routerLinkActive="active"
+                        #rla="routerLinkActive"
+                        [routerLink]="option.path"
+                    >
+                        <span>{{ option.displayName }}</span>
+                    </a>
+                </ng-container>
+            <!-- </ng-container> -->
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+</div>

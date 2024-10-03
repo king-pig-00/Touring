@@ -1,0 +1,59 @@
+<nav class="navbar-container">
+    <ng-container *ngIf="displayMenuButton">
+        <div class="mobile">
+            <p-button
+                icon="pi pi-bars"
+                severity="secondary"
+                [outlined]="true"
+                size="small"
+                (click)="onMenuButtonClick()"
+            ></p-button>
+        </div>
+    </ng-container>
+
+    <!-- logo -->
+    <a><img class="logo" src=" logo.png" alt="CruiseCode Logo" /></a>
+
+    <!-- links -->
+    <div class="links-container desktop">
+        <a (click)="op.toggle($event)">
+            <div class="user-info-container">
+                <div class="avatar-container">
+                    <i class="pi pi-user"></i>
+                </div>
+                <div class="text-container">
+                    <span class="name">John Pate</span>
+                    <span class="description">Top 10 developer</span>
+                </div>
+            </div>
+        </a>
+        <p-overlayPanel #op appendTo="body" styleClass="draw-user-menu">
+            <ng-template pTemplate="">
+                <div class="user-menu">
+                    <div class="text-container mobile">
+                        <span class="name">John Pate</span>
+                        <span class="description">Top 10 developer</span>
+                    </div>
+                    <a class="menu-item">
+                        <i class="pi pi-user"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a class="menu-item">
+                        <i class="pi pi-sign-out"></i>
+                        <span>Sign Out</span>
+                    </a>
+                </div>
+            </ng-template>
+        </p-overlayPanel>
+    </div>
+    <div class="mobile">
+        <a (click)="op.toggle($event)">
+            <div class="user-info-container">
+                <div class="avatar-container">
+                    <i class="pi pi-user"></i>
+                </div>
+            </div>
+        </a>
+        <p-menu #menu [popup]="true" appendTo="body"> </p-menu>
+    </div>
+</nav>
