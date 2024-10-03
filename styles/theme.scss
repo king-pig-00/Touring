@@ -1,0 +1,129 @@
+/**
+*  Theme Variables
+*  Don't hardcode values in your stylesheet, reference variables here so
+*  we can standardize everything throughout the app.
+*
+*  You can use variables like so:
+*  color: var(--color-blue-900);
+*/
+
+:root {
+    // colors
+    //Blues
+    --color-blue-50: #d2dade;
+    --color-blue-100: #d0ebfc;
+    --color-blue-200: #6ec4f5;
+    --color-blue-300: #0f9def;
+    --color-blue-400: #085e91;
+    --color-blue-500: #053654;
+    --color-blue-600: #03273d;
+    --color-blue-700: #011724;
+    // Oranges
+    --color-orange-100: #fff2df;
+    --color-orange-200: #feda9e;
+    --color-orange-300: #f8c759;
+    --color-orange-400: #e2a54c;
+    --color-orange-500: #e08a01;
+    --color-orange-600: #be7501;
+    --color-orange-700: #7e4f00;
+    // Data
+    --color-data-1: #febc42;
+    --color-data-2: #ebd42a;
+    --color-data-3: #03273d;
+    --color-data-4: #217582;
+    --color-data-5: #ff9c00;
+    --color-data-6: #0a444d;
+    --color-data-7: #1f7ec2;
+    --color-data-8: #febc42;
+    --color-data-9: #ebd42a;
+    // White and Grays
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-gray-100: #f9f9f9;
+    --color-gray-150: #f4f4f4;
+    --color-gray-200: #dedede;
+    --color-gray-300: #e9eced;
+    --color-gray-400: #dedede;
+    --color-gray-500: #a1a1a1;
+    --color-gray-600: #676767;
+    --color-gray-700: #272727;
+    --color-gray-800: #212121;
+    --color-gray-divider: #dee2e6;
+
+    --color-blue-gray: #d1dadf;
+
+    // status
+    --color-success: #248439;
+    --color-bg-success: #d2e6d7;
+    --color-warn: #7e4f00;
+    --color-bg-warn: #feda9e;
+    --color-error: #cc390a;
+    --color-bg-error: #f5d7ce;
+    --color-error-alt: #e08a01;
+    // shadows
+    --shadow-base-1: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    --shadow-base-2: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+    // border radius
+    --border-radius-base: 0.4rem;
+    --border-radius-lg: 0.625rem;
+    // --------- fonts ---------
+    // font size
+    --font-size-body-2xs: 6px;
+    --font-size-body-xs: 8px;
+    --font-size-body-s: 10px;
+    --font-size-body-m: 12px;
+    --font-size-body: 14px;
+    --font-size-body-xl: 20px;
+    --font-size-heading-2xl: 32px;
+    --font-size-heading-xl: 24px;
+    --font-size-heading-l: 20px;
+    --font-size-heading-md: 18px;
+    --font-size-heading-sm: 16px;
+    --font-size-heading-xs: 12px;
+    --font-size-heading-2xs: 10px;
+    // line height
+    --line-height-body-2xs: 8px;
+    --line-height-body-xs: 10px;
+    --line-height-body-s: 12px;
+    --line-height-body-m: 14px;
+    --line-height-body: 16px;
+    --line-height-body-xl: 21px;
+    --line-height-heading-2xl: 32px;
+    --line-height-heading-xl: 24px;
+    --line-height-heading-l: 20px;
+    --line-height-heading-md: 18px;
+    --line-height-heading-sm: 16px;
+    --line-height-heading-xs: 12px;
+    --line-height-heading-2xs: 10px;
+    // font family
+    --font-sans-serif: Inter;
+    // font weight
+    --font-weight-normal: 400;
+    --font-weight-medium: 600;
+    --font-weight-semibold: 700;
+    --font-weight-bold: 800;
+    // --------- spacing ---------
+    --spacing-3xl: 48px;
+    --spacing-2xl: 40px;
+    --spacing-xl: 32px;
+    --spacing-l: 28px;
+    --spacing-base: 24px;
+    --spacing-md: 20px;
+    --spacing-sm: 16px;
+    --spacing-xs: 12px;
+    --spacing-2xs: 8px;
+    --spacing-3xs: 6px;
+    // --------- gap ---------
+    --gap-xl: 20px;
+    --gap-large: 16px;
+    --gap-base: 12px;
+    --gap-md: 10px;
+    --gap-sm: 8px;
+    --gap-xs: 6px;
+    // --------- viewport size ---------
+    --viewport-sm: 640px;
+    --viewport-md: 768px;
+    --viewport-lg: 1024px;
+    --viewport-xl: 1280px;
+    --viewport-2xl: 1536px;
+}
