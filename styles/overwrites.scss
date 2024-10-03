@@ -1,0 +1,113 @@
+p-inputswitch {
+    height: 28px !important;
+}
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+    background: var(--color-blue-500) !important;
+}
+
+.p-calendar {
+    width: 100% !important;
+    max-width: none !important;
+    border-radius: var(--border-radius-base) !important;
+    gap: var(--gap-xs) !important;
+    border: 1px solid var(--color-gray-300) !important;
+    background-color: var(--color-white) !important;
+    &:hover {
+        border-color: var(--color-blue-500) !important; // default from primeng
+    }
+}
+
+.ng-dirty.ng-invalid > .p-calendar {
+    border: 1px solid #e24c4c !important;
+}
+
+.p-calendar-w-btn .p-inputtext {
+    background-color: #fff !important;
+    border: none !important;
+}
+
+.p-calendar-w-btn .p-datepicker-trigger {
+    color: var(--color-blue-500) !important;
+    background-color: #fff !important;
+    border-color: #ced4da !important;
+    border: none !important;
+    border-radius: var(--border-radius-base) !important;
+    &:hover {
+        background-color: #fff !important;
+    }
+}
+
+.p-calendar-w-btn .p-inputtext {
+    background-color: #fff !important;
+    border: none !important;
+}
+.p-calendar-w-btn .p-datepicker-trigger {
+    color: var(--color-blue-500) !important;
+    background-color: #fff !important;
+    border-color: #ced4da !important;
+    border: none !important;
+    border-radius: var(--border-radius-base) !important;
+    &:hover {
+        background-color: #fff !important;
+    }
+    box-shadow: none !important;
+}
+.calendar-icon .p-button-icon {
+    color: var(--color-blue-500) !important;
+}
+.p-calendar > input {
+    border-radius: var(--border-radius-base) !important;
+}
+
+.p-dropdown {
+    width: 100%;
+}
+
+.p-overlaypanel .p-overlaypanel-content {
+    padding: 0 !important;
+}
+
+.upload-btn {
+    max-width: 250px;
+    overflow: hidden;
+    span {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 150px;
+        overflow: hidden;
+    }
+}
+
+.p-radiobutton .p-radiobutton-box.p-highlight {
+    border-color: var(--color-blue-500);
+    background: var(--color-blue-500);
+}
+
+.p-checkbox .p-checkbox-box.p-highlight {
+    border-color: var(--color-blue-500);
+    background: var(--color-blue-500);
+}
+
+.p-menu {
+    width: auto;
+}
+
+.p-badge {
+    background: var(--color-blue-500);
+}
+
+.p-selectbutton {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2xs);
+}
+.p-selectbutton .p-button {
+    padding: var(--spacing-2xs) var(--spacing-sm);
+    font-size: var(--font-size-body);
+    border: 1px solid var(--color-gray-200);
+    border-radius: 6px;
+}
+.p-selectbutton .p-button.p-highlight {
+    background: var(--color-blue-500);
+    border-color: var(--color-blue-500);
+}
