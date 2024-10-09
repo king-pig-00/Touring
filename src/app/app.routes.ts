@@ -4,6 +4,13 @@ import { Route } from '@angular/router';
 
 export const ROUTES: Route[] = [
     {
+        path: '',
+        loadComponent: () =>
+            import('./features/home/home.component').then(
+                (c) => c.HomeComponent
+            ),
+    },
+    {
         path: 'operator',
         loadChildren: () =>
             import('./features/operator/operator.routes').then(
@@ -31,14 +38,14 @@ export const ROUTES: Route[] = [
     //         overrideRole: [roles.Developer, roles.CruiseCodeAdmin],
     //     },
     // },
-    // {
-    //     path: 'home',
-    //     loadComponent: () =>
-    //         import('./features/home/home.component').then(
-    //             (c) => c.HomeComponent
-    //         ),
-    //     canActivate: [authedGuardCanActivate],
-    // },
+    {
+        path: 'home',
+        loadComponent: () =>
+            import('./features/home/home.component').then(
+                (c) => c.HomeComponent
+            ),
+        // canActivate: [authedGuardCanActivate],
+    },
     // {
     //     path: 'forbidden',
     //     loadComponent: () =>
