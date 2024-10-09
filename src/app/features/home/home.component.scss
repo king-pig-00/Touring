@@ -1,0 +1,51 @@
+.home-container {
+    background-image: url("../../../../public/cruisedusk.jpg");
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .content-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-md);
+        background-color: var(--color-white);
+        padding-top: var(--spacing-3xl);
+        padding-bottom: var(--spacing-3xl);
+        border-radius: var(--border-radius-base);
+        box-shadow: var(--shadow-base-1);
+        max-width: 900px;
+        width: 60%;
+        img {
+            width: 360px;
+        }
+        p {
+            font-size: var(--font-size-body-xl);
+            text-align: center;
+        }
+        button {
+            width: 100%;
+            max-width: 130px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .home-container {
+        .content-container {
+            padding: var(--spacing-md);
+            width: 100%;
+        }
+        img {
+            width: 280px !important;
+        }
+    }
+}
