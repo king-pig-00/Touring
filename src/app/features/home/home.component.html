@@ -1,7 +1,145 @@
-<div class="home-container">
-    <div class="content-container">
-        <img class="logo" src=" logo.png" alt="Touring Logo" />
-        <p>Welcome !!!</p>
-        <button pButton class="btn-primary">Login</button>
+<ng-container
+    *ngIf="{
+        formType: formType$ | async,
+    } as config"
+>
+    <div class="home-container">
+        <div class="content-container">
+            <img class="logo" src=" logo.png" alt="Touring Logo" />
+            <ng-container [ngSwitch]="config.formType">
+                <ng-container *ngSwitchCase="'welcome'">
+                    <div class="welcome-content">
+                        <p>Welcome !!!</p>
+                        <button
+                            pButton
+                            class="btn-primary"
+                            (click)="showForm('signin')"
+                        >
+                            Sign in
+                        </button>
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="'signin'">
+                    <form [formGroup]="signinForm" (ngSubmit)="signin()">
+                        <div class="row-container">
+                            <div class="col-container">
+                                <label>Email</label>
+                                <input
+                                    pInputText
+                                    type="text"
+                                    id="email"
+                                    formControlName="email"
+                                />
+                            </div>
+                            <div class="col-container">
+                                <label>Password</label>
+                                <input
+                                    pInputText
+                                    type="password"
+                                    id="password"
+                                    formControlName="password"
+                                />
+                            </div>
+                        </div>
+                        <div class="action-container">
+                            <a>Reset your password?</a>
+                            <div class="button-content">
+                                <button
+                                    pButton
+                                    class="btn btn-primary-inverse"
+                                    size="small"
+                                    (click)="showForm('welcome')"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    pButton
+                                    class="btn-primary"
+                                    size="small"
+                                >
+                                    Sign in
+                                </button>
+                            </div>
+                            <span
+                                >Don't have an account?<a
+                                    (click)="showForm('signup')"
+                                    >Sign up now</a
+                                ></span
+                            >
+                        </div>
+                    </form>
+                </ng-container>
+                <ng-container *ngSwitchCase="'signup'">
+                    <form [formGroup]="signupForm" (ngSubmit)="signup()">
+                        <div class="row-container gap-4">
+                            <div class="col-container half-width">
+                                <label>First Name</label>
+                                <input
+                                    pInputText
+                                    type="text"
+                                    id="firstName"
+                                    formControlName="firstName"
+                                />
+                            </div>
+                            <div class="col-container half-width">
+                                <label>Last Name</label>
+                                <input
+                                    pInputText
+                                    type="text"
+                                    id="lastName"
+                                    formControlName="lastName"
+                                />
+                            </div>
+                            <div class="col-container">
+                                <label>Email</label>
+                                <input
+                                    pInputText
+                                    type="text"
+                                    id="email"
+                                    formControlName="email"
+                                />
+                            </div>
+                            <div class="col-container">
+                                <label>Password</label>
+                                <input
+                                    pInputText
+                                    type="password"
+                                    id="password"
+                                    formControlName="password"
+                                />
+                            </div>
+                            <div class="col-container">
+                                <label>Confirm Password</label>
+                                <input
+                                    pInputText
+                                    type="password"
+                                    id="confirmPassword"
+                                    formControlName="confirmPassword"
+                                />
+                            </div>
+                        </div>
+                        <div class="action-container">
+                            <a></a>
+                            <div class="button-content">
+                                <button
+                                    type="submit"
+                                    pButton
+                                    class="btn-primary"
+                                    size="small"
+                                >
+                                    Sign up
+                                </button>
+                            </div>
+                            <span
+                                >Already have an account?<a (click)="showForm('signin')"
+                                    >Sign in</a
+                                ></span
+                            >
+                        </div>
+                    </form>
+                </ng-container>
+            </ng-container>
+        </div>
     </div>
-</div>
+</ng-container>

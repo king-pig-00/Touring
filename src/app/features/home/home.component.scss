@@ -14,22 +14,73 @@
         align-items: center;
         gap: var(--spacing-md);
         background-color: var(--color-white);
-        padding-top: var(--spacing-3xl);
-        padding-bottom: var(--spacing-3xl);
+        padding: var(--spacing-3xl);
         border-radius: var(--border-radius-base);
         box-shadow: var(--shadow-base-1);
-        max-width: 900px;
+        max-width: 800px;
         width: 60%;
         img {
-            width: 360px;
+            width: 300px;
         }
-        p {
-            font-size: var(--font-size-body-xl);
-            text-align: center;
+        .welcome-content {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+            p {
+                font-size: var(--font-size-body-xl);
+            }
+            button {
+                width: 100%;
+                max-width: 150px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        form {
+            margin-top: var(--spacing-md);
+            .row-container {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: var(--spacing-2xs);
+                .col-container {
+                    width: calc(100% - var(--gap-sm));
+                    label {
+                        display: block;
+                    }
+                    input {
+                        width: 100%;
+                    }
+                    &.half-width {
+                        width: calc(49% - var(--gap-sm));
+                    }
+                }
+            }
+            .action-container {
+                display: flex;
+                flex-direction: column;
+                padding: var(--spacing-2xs);
+                gap: var(--spacing-l);
+                .button-content {
+                    display: flex;
+                    flex-direction: row;
+                    gap: var(--spacing-sm);
+                }
+                span {
+                    font-size: 18px;
+                    display: flex;
+                    gap: var(--spacing-md);
+                }
+            }
+        }
+        a {
+            color: var(--primary-color);
         }
         button {
             width: 100%;
-            max-width: 130px;
+            max-width: 90px;
             display: flex;
             flex-direction: row;
             align-items: center;
