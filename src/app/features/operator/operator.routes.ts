@@ -42,7 +42,7 @@ export const OPERATOR_ROUTES: Route[] = [
             // },
             {
                 path: '**',
-                redirectTo: 'tour-dispatch',
+                redirectTo: 'company-settings',
             },
         ],
     },
