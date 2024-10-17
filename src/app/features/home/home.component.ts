@@ -1,5 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {
+    CanActivate,
+    ActivatedRouteSnapshot,
+    RouterStateSnapshot,
+    Router,
+} from '@angular/router';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import {
     FormControl,
@@ -11,6 +17,8 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 
+import { UserState } from '@app/core';
+
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -19,6 +27,9 @@ import { InputTextModule } from 'primeng/inputtext';
     styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+    router = inject(Router);
+    userState = inject(UserState);
+
     formType$ = new BehaviorSubject<string>('welcome');
 
     signinForm = new FormGroup({
@@ -56,32 +67,22 @@ export class HomeComponent {
     });
 
     showForm(config: string): void {
-        console.log('test');
         this.formType$.next(config);
     }
 
-    signin(): void {
+    signin() {
         const formValues = this.signinForm.getRawValue();
-        console.log(formValues);
-        // this.userState
-        //   .signin(formValues.email ?? '', formValues.password ?? '')
-        //   .then(() => {
-        //     this.refresh();
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
+        this.userState
+            .signin(formValues.email ?? '', formValues.password ?? '')
+            .then((res) => {
+                this.router.navigate([
+                    '/operator/company-settings/company-info',
+                ]);
+            })
+            .catch(() => {});
     }
-    signup(): void {
+
+    signup() {
         const formValues = this.signupForm.getRawValue();
-        console.log(formValues);
-        // this.userState
-        //   .signin(formValues.email ?? '', formValues.password ?? '')
-        //   .then(() => {
-        //     this.refresh();
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
     }
 }
