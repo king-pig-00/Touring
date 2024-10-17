@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { AuthGuard } from '@app/core';
 // import { Features, featureGuardCanActivate } from '@app/core';
 
 export const OPERATOR_ROUTES: Route[] = [
@@ -18,7 +19,7 @@ export const OPERATOR_ROUTES: Route[] = [
                     import(
                         './pages/company-settings/company-settings.routes'
                     ).then((r) => r.BOOKING_MANAGEMENT_ROUTES),
-                // canActivate: [featureGuardCanActivate],
+                canActivate: [AuthGuard],
                 // data: {
                 //     feature: Features.companySettings.name,
                 //     pages: Object.values(Features.companySettings.pages).map(
