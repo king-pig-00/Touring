@@ -84,5 +84,18 @@ export class HomeComponent {
 
     signup() {
         const formValues = this.signupForm.getRawValue();
+        this.userState
+            .signup(
+                formValues.firstName ?? '',
+                formValues.lastName ?? '',
+                formValues.email ?? '',
+                formValues.password ?? '',
+            )
+            .then((res) => {
+                this.router.navigate([
+                    '/operator/company-settings/company-info',
+                ]);
+            })
+            .catch(() => {});
     }
 }

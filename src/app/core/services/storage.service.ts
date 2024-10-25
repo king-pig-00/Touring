@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 type StorageKeys =
     | 'authToken'
-    | 'cartStorageVersion'
+    | 'userName'
     | 'lastSearchParams'
     | 'redirectPostLogIn'
     | 'skipLoginSuccess';
