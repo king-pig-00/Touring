@@ -1,7 +1,7 @@
-const baseUrl = 'http://localhost:8080/api/';
+const baseUrl = 'http://localhost:8080/API/';
 
 export const ApiRoutes = {
-    auth: `${baseUrl}auth/`,
+    auth: `${baseUrl}Auth/`,
     b2c: `${baseUrl}B2C/`,
     cart: `${baseUrl}api/Cart/`,
     agent: `${baseUrl}Agent/`,

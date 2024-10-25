@@ -1,11 +1,14 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable, combineLatest, map, startWith } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
 
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { MenuModule } from 'primeng/menu';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+
+import { StorageService } from '@app/core';
+import { UserState } from '@app/core';
 
 @Component({
     selector: 'app-navbar',
@@ -21,110 +24,22 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
+    userState = inject(UserState);
+    storageService = inject(StorageService);
+
     @Input() displayMenuButton = false;
     @Output() menuButtonClick = new EventEmitter<void>();
     isAdmin$ = true;
     isAgent$ = false;
-    user$ = 'sda';
 
-    desktopUserMenu$: Observable<
-        {
-            label: string;
-            escape: boolean;
-            routerLink?: string;
-            command?: () => void;
-        }[]
-    > = combineLatest([this.user$]).pipe(
-        map(([user]) => {
-            if (user) {
-                return [
-                    {
-                        label: this.createMenuItemTemplate(
-                            'Account',
-                            '/assets/icons/ic_nav_mobile_account.svg'
-                        ),
-                        escape: false,
-                        routerLink: '/agent/profile',
-                        // isAgent || isAdmin
-                        //     ?
-                        //     : '/user/profile',
-                    },
-                    {
-                        label: this.createMenuItemTemplate(
-                            'Logout',
-                            'pi-sign-out'
-                        ),
-                        escape: false,
-                        command: () => {
-                            // this.logout();
-                        },
-                    },
-                ];
-            } else {
-                return [
-                    {
-                        label: this.createMenuItemTemplate(
-                            'Login',
-                            'pi-sign-in'
-                        ),
-                        escape: false,
-                        command: () => {
-                            // this.login();
-                        },
-                    },
-                ];
-            }
-        })
-    );
-    mobileMenu$: Observable<
-        {
-            label: string;
-            escape: boolean;
-            routerLink?: string;
-            command?: () => void;
-        }[]
-    > = combineLatest([this.user$]).pipe(
-        map(([user]) => {
-            if (user) {
-                return [
-                    // {
-                    //     label: this.createMenuItemTemplate(
-                    //         'Account',
-                    //         '/assets/icons/ic_nav_mobile_account.svg'
-                    //     ),
-                    //     escape: false,
-                    //     routerLink:
-                    //         isAgent || isAdmin
-                    //             ? '/agent/profile'
-                    //             : '/user/profile',
-                    // },
-                    {
-                        label: this.createMenuItemTemplate(
-                            'Logout',
-                            'pi-sign-out'
-                        ),
-                        escape: false,
-                        command: () => {
-                            // this.logout();
-                        },
-                    },
-                ];
-            } else {
-                return [
-                    {
-                        label: this.createMenuItemTemplate(
-                            'Login',
-                            'pi-sign-in'
-                        ),
-                        escape: false,
-                        command: () => {
-                            // this.login();
-                        },
-                    },
-                ];
-            }
-        })
-    );
+    userName$ = new BehaviorSubject<string>('');
+
+    ngOnInit(): void {
+        const userName = this.storageService.getItem('userName');
+        if (userName) {
+            this.userName$.next(userName);
+        }
+    }
 
     login(): void {
         // this.authService.login();

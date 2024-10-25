@@ -26,6 +26,10 @@ export class UserState {
         return lastValueFrom(this.authService.signin(email, password))
             .then((res) => {
                 this.storageService.setItem('authToken', res.data.token);
+                this.storageService.setItem(
+                    'userName',
+                    res.data.firstName + ' ' + res.data.lastName
+                );
                 this.user$.next(res.data);
             })
             .then(() => {
@@ -33,33 +37,26 @@ export class UserState {
             });
     }
 
-    signup(username: string, email: string, password: string) {
-        // const role = 'user';
-        // return lastValueFrom(
-        //   this.authService.signup(username, email, password, role)
-        // )
-        //   .then((res) => {
-        //     // this.updateIsLoading('saveHousingData', 'success');
-        //     this.user$.next(res.data);
-        //   })
-        //   .then(() => {
-        //     // this.refresh();
-        //     return Promise.resolve();
-        //   })
-        //   .catch(() => {
-        //     // this.updateIsLoading('saveHousingData', 'error');
-        //   });
-        // this.authService.register(username, email, password).subscribe({
-        //     next: data => {
-        //       console.log(data);
-        //       this.isSuccessful = true;
-        //       this.isSignUpFailed = false;
-        //     },
-        //     error: err => {
-        //       this.errorMessage = err.error.message;
-        //       this.isSignUpFailed = true;
-        //     }
-        //   });
+    signup(
+        firstName: string,
+        lastName: string,
+        email: string,
+        password: string,
+    ) {
+        return lastValueFrom(
+            this.authService.signup(firstName, lastName, email, password)
+        )
+            .then((res) => {
+                // this.updateIsLoading('saveHousingData', 'success');
+                this.user$.next(res.data);
+            })
+            .then(() => {
+                // this.refresh();
+                return Promise.resolve();
+            })
+            .catch(() => {
+                // this.updateIsLoading('saveHousingData', 'error');
+            });
     }
 
     signout() {}
