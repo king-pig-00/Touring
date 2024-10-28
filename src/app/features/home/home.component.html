@@ -4,6 +4,7 @@
     } as config"
 >
     <div class="home-container">
+        <p-toast />
         <div class="content-container">
             <img class="logo" src=" logo.png" alt="Touring Logo" />
             <ng-container [ngSwitch]="config.formType">
@@ -117,6 +118,16 @@
                                     id="confirmPassword"
                                     formControlName="confirmPassword"
                                 />
+                                <div
+                                    *ngIf="
+                                        signupForm.hasError('passwordRequired')
+                                    "
+                                >
+                                    <span class="error-message">
+                                        Passwords do not match. Please try
+                                        again.
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="action-container">
@@ -132,7 +143,8 @@
                                 </button>
                             </div>
                             <span
-                                >Already have an account?<a (click)="showForm('signin')"
+                                >Already have an account?<a
+                                    (click)="showForm('signin')"
                                     >Sign in</a
                                 ></span
                             >

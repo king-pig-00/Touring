@@ -56,6 +56,9 @@
                     &.half-width {
                         width: calc(49% - var(--gap-sm));
                     }
+                    .error-message {
+                        color: var(--color-error);
+                    }
                 }
             }
             .action-container {
