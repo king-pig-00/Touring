@@ -1,5 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import {
+    CanActivate,
+    ActivatedRouteSnapshot,
+    RouterStateSnapshot,
+    Router,
+} from '@angular/router';
+import {
     BehaviorSubject,
     Subscription,
     combineLatest,
@@ -18,46 +24,53 @@ import { User } from '../models';
     providedIn: 'root',
 })
 export class UserState {
+    router = inject(Router);
     authService = inject(AuthService);
     storageService = inject(StorageService);
     user$ = new BehaviorSubject<User | undefined>(undefined);
 
+    init() {}
+
     signin(email: string, password: string) {
-        return lastValueFrom(this.authService.signin(email, password))
-            .then((res) => {
-                this.storageService.setItem('authToken', res.data.token);
-                this.storageService.setItem(
-                    'userName',
-                    res.data.firstName + ' ' + res.data.lastName
-                );
-                this.user$.next(res.data);
-            })
-            .then(() => {
-                return Promise.resolve();
-            });
+        return lastValueFrom(this.authService.signin(email, password)).then(
+            (res) => {
+                if (res.success) {
+                    this.storageService.setItem('authToken', res.data.token);
+                    this.storageService.setItem(
+                        'userName',
+                        res.data.firstName + ' ' + res.data.lastName
+                    );
+                    this.user$.next(res.data);
+                    return Promise.resolve();
+                } else {
+                    return Promise.reject(res.error);
+                }
+            }
+        );
     }
 
     signup(
         firstName: string,
         lastName: string,
         email: string,
-        password: string,
+        password: string
     ) {
         return lastValueFrom(
             this.authService.signup(firstName, lastName, email, password)
-        )
-            .then((res) => {
-                // this.updateIsLoading('saveHousingData', 'success');
+        ).then((res) => {
+            if (res.success) {
                 this.user$.next(res.data);
-            })
-            .then(() => {
-                // this.refresh();
                 return Promise.resolve();
-            })
-            .catch(() => {
-                // this.updateIsLoading('saveHousingData', 'error');
-            });
+            } else {
+                return Promise.reject(res.error);
+            }
+        });
     }
 
-    signout() {}
+    signout() {
+        this.storageService.removeItem('authToken');
+        this.storageService.removeItem('userName');
+        this.user$.next(undefined);
+        this.router.navigate(['/home']);
+    }
 }

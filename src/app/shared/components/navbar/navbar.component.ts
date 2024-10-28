@@ -7,7 +7,7 @@ import { DividerModule } from 'primeng/divider';
 import { MenuModule } from 'primeng/menu';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 
-import { StorageService } from '@app/core';
+import { AuthService, StorageService } from '@app/core';
 import { UserState } from '@app/core';
 
 @Component({
@@ -25,6 +25,7 @@ import { UserState } from '@app/core';
 })
 export class NavbarComponent {
     userState = inject(UserState);
+    authService = inject(AuthService);
     storageService = inject(StorageService);
 
     @Input() displayMenuButton = false;
@@ -32,7 +33,7 @@ export class NavbarComponent {
     isAdmin$ = true;
     isAgent$ = false;
 
-    userName$ = new BehaviorSubject<string>('');
+    userName$ = new BehaviorSubject<string | undefined>(undefined);
 
     ngOnInit(): void {
         const userName = this.storageService.getItem('userName');
@@ -45,8 +46,8 @@ export class NavbarComponent {
         // this.authService.login();
     }
 
-    logout(): void {
-        // this.authService.logout();
+    signout(): void {
+        this.userState.signout();
     }
 
     onMenuButtonClick(): void {

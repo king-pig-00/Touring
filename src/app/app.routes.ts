@@ -1,4 +1,6 @@
 import { Route } from '@angular/router';
+import { AuthGuard } from './core';
+import { RoleGuard } from './core';
 
 // export const routes: Routes = [];
 
@@ -16,17 +18,8 @@ export const ROUTES: Route[] = [
             import('./features/operator/operator.routes').then(
                 (r) => r.OPERATOR_ROUTES
             ),
-        // TODO: we'll need to update this once we have MSAl configured
-        // canActivate: [roleGuardCanActivate],
-        // data: {
-        //     expectedRole: [
-        //         roles.Agent,
-        //         roles.InhouseAgent,
-        //         roles.Employee,
-        //         roles.Admin,
-        //     ],
-        //     overrideRole: [roles.Developer, roles.CruiseCodeAdmin],
-        // },
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roleId: 1 },
     },
     // {
     //     path: 'admin',
@@ -64,5 +57,12 @@ export const ROUTES: Route[] = [
     //     redirectTo: 'operator',
     //     pathMatch: 'full',
     // },
+    {
+        path: 'unauthorized',
+        loadComponent: () =>
+            import('./features/errors/unauthorized/unauthorized.component').then(
+                (c) => c.UnauthorizedComponent
+            ),
+    },
     { path: '**', redirectTo: '' },
 ];

@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ApiRoutes } from '../../constants';
-import { User } from '../../models';
+import { SignedUser } from '../../models';
 
 @Injectable({
     providedIn: 'root',
@@ -16,6 +16,15 @@ export class AuthService {
 
     getToken(): string | null {
         return localStorage.getItem('authToken');
+    }
+
+    getRoleId(): number | null {
+        const token = this.getToken();
+        if (token) {
+            const decodedToken = this.decodeToken(token);
+            return decodedToken.roleId || null;
+        }
+        return null;
     }
 
     private isTokenExpired(token: string): boolean {
@@ -38,14 +47,13 @@ export class AuthService {
             throw new Error('JWT malformed');
         }
         const payload = parts[1];
-        console.log(JSON.parse(atob(payload)));
         return JSON.parse(atob(payload));
     }
 
     signin(email: string, password: string) {
         return this.http.post<{
             success: boolean;
-            data: any;
+            data: SignedUser;
             error?: string;
         }>(`${ApiRoutes.auth}Signin`, { email, password });
     }
@@ -54,11 +62,11 @@ export class AuthService {
         firstName: string,
         lastName: string,
         email: string,
-        password: string,
+        password: string
     ) {
         return this.http.post<{
             success: boolean;
-            data: any;
+            data: SignedUser;
             error?: string;
         }>(`${ApiRoutes.auth}Signup`, {
             firstName,
