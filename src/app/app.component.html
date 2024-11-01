@@ -1,17 +1,3 @@
-<!-- <ng-container *ngIf="{ displayApp: (displayApp$ | async) } as config"> -->
-    <div class="page-container" >
-        <!-- [class.page-hide]="config.displayApp === false" -->
-        <router-outlet></router-outlet>
-    </div>
-
-    <!-- <app-connectivity-banner></app-connectivity-banner>
-    <app-loader></app-loader>
-    <app-confirmation-dialog></app-confirmation-dialog>
-    <app-error-dialog></app-error-dialog>
-    <app-success-dialog></app-success-dialog>
-    <app-image-lightbox-modal></app-image-lightbox-modal>
-
-    <app-loader-static
-        [isDisplayed]="config.displayApp === false"
-    ></app-loader-static> -->
-<!-- </ng-container> -->
+<div class="page-container">
+    <router-outlet></router-outlet>
+</div>
