@@ -4,23 +4,11 @@ import { RoleGuard } from './core';
 
 export const ROUTES: Route[] = [
     {
-        path: '',
-        loadComponent: () =>
-            import('./features/home/home.component').then(
-                (c) => c.HomeComponent
-            ),
-    },
-    {
         path: 'home',
         loadComponent: () =>
             import('./features/home/home.component').then(
                 (c) => c.HomeComponent
             ),
-    },
-    {
-        path: '',
-        redirectTo: 'operator',
-        pathMatch: 'full',
     },
     {
         path: 'operator',
@@ -34,9 +22,14 @@ export const ROUTES: Route[] = [
     {
         path: 'unauthorized',
         loadComponent: () =>
-            import('./features/errors/unauthorized/unauthorized.component').then(
-                (c) => c.UnauthorizedComponent
-            ),
+            import(
+                './features/errors/unauthorized/unauthorized.component'
+            ).then((c) => c.UnauthorizedComponent),
     },
-    { path: '**', redirectTo: '' },
+    {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+    },
+    { path: '**', redirectTo: 'home' },
 ];

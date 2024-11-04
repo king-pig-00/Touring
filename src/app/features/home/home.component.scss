@@ -56,6 +56,9 @@
                     &.half-width {
                         width: calc(49% - var(--gap-sm));
                     }
+                    .success-message {
+                        color: var(--color-success);
+                    }
                     .error-message {
                         color: var(--color-error);
                     }
@@ -66,6 +69,9 @@
                 flex-direction: column;
                 padding: var(--spacing-2xs);
                 gap: var(--spacing-l);
+                a {
+                    text-align: end;
+                }
                 .button-content {
                     display: flex;
                     flex-direction: row;

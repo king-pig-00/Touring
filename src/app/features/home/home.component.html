@@ -1,10 +1,10 @@
 <ng-container
     *ngIf="{
         formType: formType$ | async,
+        statuses: statuses$ | async,
     } as config"
 >
     <div class="home-container">
-        <p-toast />
         <div class="content-container">
             <img class="logo" src=" logo.png" alt="Touring Logo" />
             <ng-container [ngSwitch]="config.formType">
@@ -40,6 +40,12 @@
                                     id="password"
                                     formControlName="password"
                                 />
+                                <div
+                                    *ngIf="config.statuses?.signin === 'error'"
+                                    class="error-message"
+                                >
+                                    Invalid email or password.
+                                </div>
                             </div>
                         </div>
                         <div class="action-container">
@@ -109,6 +115,13 @@
                                     id="password"
                                     formControlName="password"
                                 />
+
+                                <div
+                                    *ngIf="passwordControl?.errors?.['minlength']"
+                                    class="error-message"
+                                >
+                                    Password must be at least 6 characters long.
+                                </div>
                             </div>
                             <div class="col-container">
                                 <label>Confirm Password</label>
@@ -122,11 +135,24 @@
                                     *ngIf="
                                         signupForm.hasError('passwordRequired')
                                     "
+                                    class="error-message"
                                 >
-                                    <span class="error-message">
-                                        Passwords do not match. Please try
-                                        again.
-                                    </span>
+                                    Passwords do not match. Please try again.
+                                </div>
+                                <div
+                                    class="error-message"
+                                    *ngIf="config.statuses?.signup === 'error'"
+                                >
+                                    This email is already registered. Please use
+                                    a different email.
+                                </div>
+                                <div
+                                    *ngIf="
+                                        config.statuses?.signup === 'success'
+                                    "
+                                    class="success-message"
+                                >
+                                    Your account has been created successfully.
                                 </div>
                             </div>
                         </div>
