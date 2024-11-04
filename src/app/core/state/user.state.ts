@@ -40,7 +40,12 @@ export class UserState {
                         'userName',
                         res.data.firstName + ' ' + res.data.lastName
                     );
+                    this.storageService.setItem(
+                        'redirectUrl',
+                        res.data.redirectUrl ?? ''
+                    );
                     this.user$.next(res.data);
+                    window.location.href = res.data.redirectUrl ?? '/dashboard';
                     return Promise.resolve();
                 } else {
                     return Promise.reject(res.error);
@@ -68,8 +73,7 @@ export class UserState {
     }
 
     signout() {
-        this.storageService.removeItem('authToken');
-        this.storageService.removeItem('userName');
+        this.storageService.clear();
         this.user$.next(undefined);
         this.router.navigate(['/home']);
     }

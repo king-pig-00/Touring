@@ -1,12 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-    CanActivate,
-    ActivatedRouteSnapshot,
-    RouterStateSnapshot,
-    Router,
-} from '@angular/router';
-import { BehaviorSubject, lastValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import {
     FormControl,
     FormGroup,
@@ -17,32 +12,28 @@ import {
 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
 
-import { UserState } from '@app/core';
+import { UserState, UIStatus } from '@app/core';
 
 @Component({
     selector: 'app-home',
     standalone: true,
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        ButtonModule,
-        InputTextModule,
-        ToastModule,
-    ],
-    providers: [MessageService],
+    imports: [CommonModule, ReactiveFormsModule, ButtonModule, InputTextModule],
 })
 export class HomeComponent {
     router = inject(Router);
     userState = inject(UserState);
-    messageService = inject(MessageService);
 
     formType$ = new BehaviorSubject<string>('welcome');
-
+    statuses$ = new BehaviorSubject<{
+        signin: UIStatus;
+        signup: UIStatus;
+    }>({
+        signin: 'idle',
+        signup: 'idle',
+    });
     signinForm = new FormGroup({
         email: new FormControl<string | null>(null, {
             nonNullable: true,
@@ -53,7 +44,6 @@ export class HomeComponent {
             validators: [Validators.required],
         }),
     });
-
     signupForm = new FormGroup(
         {
             firstName: new FormControl<string | null>(null, {
@@ -93,6 +83,10 @@ export class HomeComponent {
         return { passwordRequired: true };
     }
 
+    get passwordControl() {
+        return this.signupForm.get('password');
+    }
+
     showForm(config: string): void {
         this.formType$.next(config);
     }
@@ -109,16 +103,10 @@ export class HomeComponent {
         this.userState
             .signin(formValues.email ?? '', formValues.password ?? '')
             .then(() => {
-                this.router.navigate([
-                    '/operator/company-settings/company-info',
-                ]);
+                this.updateStatus('signin', 'success');
             })
             .catch(() => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Error',
-                    detail: 'Invalid email or password.',
-                });
+                this.updateStatus('signin', 'error');
             });
     }
 
@@ -139,19 +127,18 @@ export class HomeComponent {
                 formValues.password ?? ''
             )
             .then(() => {
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Success',
-                    detail: 'Your account has been created successfully.',
-                });
+                this.updateStatus('signup', 'success');
                 this.signupForm.reset();
             })
             .catch(() => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Error',
-                    detail: 'This email is already registered. Please use a different email.',
-                });
+                this.updateStatus('signup', 'error');
             });
+    }
+
+    private updateStatus(key: 'signin' | 'signup', status: UIStatus): void {
+        this.statuses$.next({
+            ...this.statuses$.getValue(),
+            [key]: status,
+        });
     }
 }

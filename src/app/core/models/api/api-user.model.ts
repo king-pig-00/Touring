@@ -4,6 +4,7 @@ export interface SignedUser {
     firstName: string;
     lastName: string;
     token: string;
+    redirectUrl?: string;
 }
 
 export interface User {
