@@ -1,0 +1,387 @@
+.tour-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    margin: var(--spacing-sm) 0;
+    .mobile {
+        display: none;
+    }
+    .desktop {
+        display: block;
+    }
+    .card-header-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+        justify-content: space-between;
+
+        div {
+            display: flex;
+            gap: var(--spacing-xs);
+
+            .booking-number-container {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: var(--spacing-xs);
+            }
+
+            .resend-email-container {
+                display: flex;
+                flex-direction: column;
+
+                .success {
+                    color: var(--color-success);
+                }
+
+                .error {
+                    color: var(--color-error);
+                }
+            }
+        }
+    }
+
+    .card-container {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: row;
+        gap: var(--spacing-sm);
+        width: 100%;
+        background-color: var(--color-gray-100);
+        padding: var(--spacing-2xs);
+        border-radius: var(--border-radius-lg);
+        .image-text-container {
+            display: flex;
+            flex-direction: row;
+            gap: var(--spacing-sm);
+            width: 60%;
+            flex-shrink: 1;
+            flex-grow: 1;
+            img {
+                border-radius: 0.75rem;
+                max-height: 20rem;
+                height: 100%;
+                flex-grow: 1;
+                flex-shrink: 1;
+                width: 40%;
+                max-width: fit-content;
+            }
+
+            .booking-details-container {
+                display: flex;
+                flex-direction: column;
+                flex-shrink: 1;
+                flex-grow: 1;
+                gap: 0.25rem;
+                width: 60%;
+                h3 {
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                }
+
+                .booking-details-inner-container {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    .booking-details-section-container {
+                        display: flex;
+                        flex-direction: column;
+                        gap: var(--spacing-xs);
+                        align-items: flex-start;
+                        .row-container {
+                            display: flex;
+                            flex-direction: row;
+                            gap: var(--spacing-xs);
+                            align-items: flex-start;
+                            flex-wrap: wrap;
+                            width: 100%;
+                            .booking-detail-container {
+                                width: calc(50% - var(--spacing-xs));
+                                flex-grow: 1;
+                                flex-shrink: 1;
+                            }
+                        }
+                        .booking-detail-container {
+                            flex-grow: 1;
+                            flex-shrink: 1;
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            gap: 0.25rem;
+                            img {
+                                height: 22px;
+                                width: 22px;
+                                object-fit: contain;
+                            }
+
+                            &.full-width {
+                                width: 100%;
+                            }
+                        }
+                        .p-divider {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .additional-booking-details-container {
+            align-self: center;
+            display: flex;
+            flex-direction: column;
+            width: 35%;
+            flex-grow: 1;
+            flex-shrink: 1;
+            gap: 1.25rem;
+
+            .participants-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: auto;
+                gap: 1rem;
+                padding: 0 1rem;
+                .participant-container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    grid-column: auto;
+                    color: #757575;
+                    .description {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        span {
+                            font-size: 0.75rem;
+                            margin-bottom: 0.5rem;
+                        }
+                    }
+                }
+            }
+            .prices-container {
+                color: #757575;
+                h4 {
+                    padding: 0.25rem 1rem;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    margin: 0;
+                }
+                .price-container {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0.25rem 1rem;
+                }
+                .subtotal-container {
+                    background: #f4f5f6;
+                    border-radius: 0.5rem;
+                    margin-top: 1.25rem;
+                    padding: 0.5rem 1rem;
+                }
+            }
+        }
+    }
+    .additional-details-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-sm);
+        .qrcode-outer-container {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            .qrcode-container {
+                width: 210px;
+                height: 210px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                border-radius: 10px;
+                background-color: var(--color-white);
+            }
+        }
+    }
+}
+
+.lead-traveler-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1rem 0;
+    gap: 0.5rem;
+    .title {
+        width: 100%;
+        flex-shrink: 0;
+        font-size: 1.125rem;
+        font-weight: 700;
+        display: flex;
+        gap: var(--gap-sm);
+    }
+    .input-container {
+        width: 40%;
+        flex-grow: 1;
+        flex-shrink: 0;
+        grid-column: auto;
+        grid-row: 1 / 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        input {
+            width: 100%;
+        }
+    }
+}
+
+.button-remove-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    .button-remove {
+        color: #ec2727;
+        background-color: #f8d4cc;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 16px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.25rem;
+        align-self: flex-end;
+    }
+
+    .button-remove:hover {
+        color: #cc390a;
+        background-color: rgba(204, 57, 10, 0.4);
+    }
+}
+
+// primeNg styling
+
+::ng-deep .participant-input {
+    font-size: 0.85rem;
+    color: #757575;
+    padding: 0;
+    width: 2.5rem;
+    height: 1.5rem;
+    border-color: transparent; // to prevent conflicts with styling for validation error
+    outline: none;
+    background: transparent;
+    text-align: center;
+    margin: 0 0.5rem;
+    p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
+        border-color: #e24c4c;
+    }
+}
+
+::ng-deep .stepper-button {
+    color: #fff;
+    background: #2d2e73;
+    border: none;
+    height: 1.5rem !important;
+    width: 1.5rem !important;
+    border-radius: 0.75rem !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .pi {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 1280px) {
+    .tour-container {
+        .mobile {
+            display: block;
+        }
+        .desktop {
+            display: none;
+        }
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            .image-text-container {
+                width: 100%;
+                .booking-details-container {
+                    width: 100%;
+                    .booking-details-inner-container {
+                        .booking-details-section-container {
+                            .booking-detail-container {
+                            }
+                        }
+                    }
+                }
+            }
+            .additional-booking-details-container {
+                align-self: stretch;
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: 740px) {
+    .tour-container {
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            .image-text-container {
+                width: 100%;
+                flex-direction: column;
+                img {
+                    height: 16rem;
+                    width: 100%;
+                    max-width: none;
+                    object-fit: cover;
+                }
+                .booking-details-container {
+                    width: 100%;
+                    .booking-details-inner-container {
+                        .booking-details-section-container {
+                            .booking-detail-container {
+                            }
+                        }
+                    }
+                }
+            }
+            .additional-booking-details-container {
+                width: 100%;
+                .participants-container {
+                    display: flex;
+                    flex-direction: column;
+                    justify-items: center;
+                    align-content: space-between;
+                    padding: 0;
+                    .participant-container {
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: space-between;
+                        .description {
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: flex-start;
+                            span {
+                                margin-bottom: 0;
+                                justify-self: flex-start;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .additional-details-container {
+            flex-direction: column;
+        }
+    }
+}

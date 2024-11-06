@@ -1,0 +1,58 @@
+<div class="tab-container">
+    <ng-container *ngIf="bookings$ | async as bookings">
+        <div class="bookings-container">
+            <ng-container *ngIf="bookings.length > 0; else noBookings">
+                <ng-container *ngFor="let bookingGroup of bookings">
+                    <div class="booking-card">
+                        <div class="booking-details">
+                            <div class="body texts-container">
+                                <div class="text-container">
+                                    <span class="font-weight-medium"
+                                        >Order ID:
+                                    </span>
+                                    <span>{{
+                                        bookingGroup.bookings[0]
+                                            .reservationBookingId | slice : -12
+                                    }}</span>
+                                </div>
+                                <div class="text-container">
+                                    <span class="font-weight-medium"
+                                        >Booking Date:
+                                    </span>
+                                    <span>{{
+                                        bookingGroup.bookings[0].bookingDate
+                                            | date : 'MM/dd/yyyy'
+                                    }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p-divider></p-divider>
+                        <div class="booking-card-container">
+                            <ng-container
+                                *ngFor="
+                                    let booking of bookingGroup.bookings;
+                                    let i = index
+                                "
+                            >
+                                <app-booking-card
+                                    [booking]="booking"
+                                    [allowEdit]="false"
+                                    [cancelled]="bookingGroup.cancelled"
+                                    [index]="i + 1"
+                                ></app-booking-card>
+                            </ng-container>
+                        </div>
+                        <p-divider></p-divider>
+                        <app-booking-summary
+                            [booking]="bookingGroup"
+                        ></app-booking-summary>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+    </ng-container>
+
+    <ng-template #noBookings>
+        <h2>No Past Bookings</h2>
+    </ng-template>
+</div>

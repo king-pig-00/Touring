@@ -1,0 +1,106 @@
+.page-container {
+    display: flex;
+    flex-direction: row;
+    .navbar-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 20;
+    }
+    .drawer-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: var(--color-blue-500);
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        overflow: hidden;
+        transition: width 0.3s;
+        padding-top: 120px;
+        width: 70px;
+        height: 100vh;
+        z-index: 5;
+        &.drawer-expanded {
+            width: 260px;
+            .nav-options {
+                span {
+                    display: block;
+                    white-space: nowrap;
+                }
+            }
+        }
+        .toggle-button-container {
+            align-self: flex-end;
+        }
+
+        .nav-options {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            color: var(--color-white);
+            gap: 15px;
+            padding: 10px 20px;
+            width: 100%;
+            text-decoration: none;
+
+            .icon-container {
+                padding: 3px;
+                border-radius: 5px;
+                background-color: var(--color-blue-500);
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                height: 40px;
+                width: 40px;
+                flex-shrink: 0;
+                i {
+                    transition: all 300ms;
+                    color: var(--color-white);
+                }
+            }
+
+            span {
+                font-weight: 500;
+                display: none;
+            }
+
+            &:hover {
+                color: var(--color-blue-500) !important;
+                background-color: var(--color-white) !important;
+            }
+
+            &.active {
+                color: var(--color-blue-500);
+                background-color: var(--color-white);
+            }
+        }
+    }
+
+    .main-content {
+        width: 100%;
+        padding-left: 70px;
+        transition: padding 0.3s;
+        padding-top: 80px;
+        position: relative;
+        //z-index: 0; -- Removed as it was conflicting with the status banner in the manage.component in bookings
+        &.drawer-expanded {
+            padding-left: 260px;
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .page-container {
+        .drawer-container {
+            display: none;
+        }
+
+        .main-content {
+            width: 100%;
+            padding-left: 0 !important;
+        }
+    }
+}

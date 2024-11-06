@@ -1,0 +1,117 @@
+::ng-deep .p-tabview .p-tabview-nav,
+::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link,
+::ng-deep .p-tabview .p-tabview-panels,
+::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    background: none;
+}
+
+::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    color: var(--color-blue-500);
+    border-color: var(--color-blue-500);
+}
+
+// ::ng-deep .p-tabview .p-tabview-nav {
+//     border: none;
+// }
+
+::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    font-family: var(--font-sans-serif);
+    font-weight: var(--font-weight-normal);
+    font-size: var(--font-size-body-xl);
+    line-height: var(--line-height-body-xl);
+}
+
+.container {
+    .header-outer-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        .buttons-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+    }
+    .bookings-container {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+        background: var(--color-white);
+        padding: var(--spacing-md);
+        border-radius: var(--border-radius-base);
+
+        .booking-container {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+    }
+}
+.footer-container {
+    display: none;
+}
+
+.status-banner {
+    position: fixed;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 40;
+    padding: var(--spacing-sm);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--color-blue-100);
+    color: var(--color-blue-500);
+
+    span {
+        font-size: var(--font-size-body-s);
+        font-weight: var(--font-weight-medium);
+    }
+    &.display {
+        opacity: 1;
+        bottom: 0;
+    }
+}
+
+@media (max-width: 1024px) {
+    .desktop {
+        display: none;
+    }
+    .container {
+        .header-outer-container {
+            .buttons-container {
+                display: none;
+            }
+        }
+    }
+    .footer-container {
+        display: flex;
+        flex-direction: row;
+        position: sticky;
+        bottom: 0;
+        width: 100%;
+        padding: var(--spacing-xs) var(--spacing-sm);
+        gap: var(--spacing-xs);
+        background-color: var(--color-gray-300);
+        button {
+            width: 45%;
+            flex-grow: 1;
+            justify-content: center;
+        }
+    }
+
+    .status-banner {
+        bottom: 0;
+        z-index: 2;
+
+        &.display {
+            bottom: 105px;
+        }
+    }
+}

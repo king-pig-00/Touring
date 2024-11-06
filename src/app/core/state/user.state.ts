@@ -45,7 +45,7 @@ export class UserState {
                         res.data.redirectUrl ?? ''
                     );
                     this.user$.next(res.data);
-                    window.location.href = res.data.redirectUrl ?? '/dashboard';
+                    window.location.href = res.data.redirectUrl ?? '/user';
                     return Promise.resolve();
                 } else {
                     return Promise.reject(res.error);

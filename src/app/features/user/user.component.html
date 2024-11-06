@@ -1,0 +1,56 @@
+<div class="page-container">
+    <div class="navbar-container">
+        <app-navbar
+            [displayMenuButton]="true"
+            (menuButtonClick)="openMobileDrawer()"
+        ></app-navbar>
+    </div>
+
+    <div class="drawer-container" [class.drawer-expanded]="drawerExpanded">
+        <div class="toggle-button-container">
+            <p-button
+                [icon]="
+                    drawerExpanded
+                        ? 'pi pi-chevron-left'
+                        : 'pi pi-chevron-right'
+                "
+                styleClass="p-button-rounded p-button-text toggle-button"
+                (click)="toggleDrawerExpanded()"
+            ></p-button>
+        </div>
+        <ng-container *ngTemplateOutlet="navLinks"></ng-container>
+    </div>
+
+    <div class="main-content" [class.drawer-expanded]="drawerExpanded">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+<p-sidebar
+    [(visible)]="mobileDrawerIsOpen"
+    position="left"
+    styleClass="operator-drawer"
+>
+    <ng-container *ngTemplateOutlet="navLinks"></ng-container>
+</p-sidebar>
+
+<ng-template #navLinks>
+    <ng-container *ngFor="let option of navOptions">
+        <!-- autoclose drawer on link clicks -->
+        <div (click)="mobileDrawerIsOpen = false">
+            <a
+                class="nav-options"
+                routerLinkActive="active"
+                #rla="routerLinkActive"
+                [routerLink]="option.path"
+                tooltipPosition="right"
+                [pTooltip]="drawerExpanded ? '' : option.displayName"
+            >
+                <div class="icon-container">
+                    <i [class]="'pi ' + option.icon"></i>
+                </div>
+                <span>{{ option.displayName }}</span>
+            </a>
+        </div>
+    </ng-container>
+</ng-template>

@@ -1,0 +1,65 @@
+<ng-container
+    *ngIf="{
+        isOpen: isOpen$ | async,
+        context: context$ | async,
+        status: status$ | async
+    } as data"
+>
+    <p-dialog
+        [(visible)]="data.isOpen"
+        (onHide)="close()"
+        [modal]="true"
+        [style]="{ width: '60vw', height: 'auto' }"
+        [breakpoints]="{ '768px': '90vw' }"
+        [draggable]="false"
+        [resizable]="false"
+    >
+        <ng-template pTemplate="header">
+            <span class="h2">
+                Change arrival method for
+                {{ data.context?.bookingDetails?.tourName }}
+            </span>
+        </ng-template>
+        <ng-container *ngIf="data.context">
+            <div class="modify-ship-modal-container">
+                <span class="h3">Arrival Method</span>
+                <p-dropdown
+                    appendTo="body"
+                    optionLabel="shipName"
+                    optionValue="shipId"
+                    placeholder="Select a Different Arrival Method"
+                    [options]="data.context.shipList || []"
+                    [(ngModel)]="selectedShipId"
+                ></p-dropdown>
+                <div class="action-buttons-container">
+                    <ng-container *ngIf="data.status === 'success'">
+                        <span class="body-m font-medium success-text"
+                            >Booking updated!</span
+                        >
+                    </ng-container>
+                    <ng-container *ngIf="data.status === 'error'">
+                        <span class="body-m font-medium error-text"
+                            >Failed to update booking</span
+                        >
+                    </ng-container>
+                    <button
+                        pButton
+                        [disabled]="data.status === 'loading'"
+                        class="btn btn-primary-inverse"
+                        (click)="close()"
+                    >
+                        Close
+                    </button>
+                    <button
+                        pButton
+                        [loading]="data.status === 'loading'"
+                        class="btn btn-primary"
+                        (click)="updateCruise()"
+                    >
+                        Change Arrival Method
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+    </p-dialog>
+</ng-container>

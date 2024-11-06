@@ -1,0 +1,125 @@
+<div class="booking-card-container">
+    <ng-container *ngIf="booking">
+        <div class="card">
+            <div class="booking-number">
+                <div class="card">
+                    <div class="row align-items-center">
+                        <p-badge [value]="index + ''"></p-badge>
+                        <span>Booking Number: </span>
+                        <span>{{ booking.bookingnumber }}</span>
+                    </div>
+                </div>
+                <div class="booking-action">
+                    <ng-container *ngIf="allowEdit && !cancelled">
+                        <button
+                            pButton
+                            class="btn-primary-inverse body-xs"
+                            [routerLink]="[booking.reservationBookingId]"
+                        >
+                            <img src="/assets/icons/ic_pencil.svg" />
+
+                            Edit
+                        </button></ng-container
+                    >
+                    <ng-container *ngIf="cancelled">
+                        <div class="canceled-tag body-xs">
+                            <span class="body-m">Canceled</span>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="booking-item">
+                <div class="booking-img">
+                    <img
+                        [src]="
+                            booking.bookingAmountDetail.shoppingCartImagePath
+                        "
+                        [alt]="booking.tourName"
+                    />
+                </div>
+                <div class="booking-item-details">
+                    <div class="booking-row">
+                        <div class="booking-content">
+                            <span class="h4">
+                                {{ booking.tourName }}
+                                <span>({{ booking.pickupAddress }})</span>
+                            </span>
+                            <div class="line-item">
+                                <img
+                                    src="/assets/icons/ic_search_calendar_alt.svg"
+                                    alt="Calendar icon"
+                                />
+                                <span class="body date-time">
+                                    <ng-container *ngIf="booking.bookingDate">
+                                        {{
+                                            booking.bookingDate
+                                                | date : 'MM/dd/yyyy'
+                                        }},
+                                    </ng-container>
+                                    <ng-container *ngIf="booking.bookingTime">
+                                        {{ booking.bookingTime | timeFormat }}
+                                    </ng-container>
+                                </span>
+                            </div>
+                            <div class="line-item">
+                                <img
+                                    src="/assets/icons/ic_star.svg"
+                                    alt="Calendar icon"
+                                />
+                                <span class="body">
+                                    <ng-container *ngIf="booking.leadFirstName">
+                                        {{ booking.leadFirstName }}
+                                        {{ booking.leadLastName }}
+                                    </ng-container>
+                                </span>
+                            </div>
+                            <div class="line-item">
+                                <img
+                                    src="/assets/icons/ic_users_alt.svg"
+                                    alt="Passengers icon"
+                                />
+                                <span class="body">
+                                    <ng-container *ngIf="booking.bookingAdults">
+                                        {{ booking.bookingAdults }} Adults,
+                                        {{ booking.bookingChildren }} Children
+                                        <span *ngIf="booking.bookingInfants">
+                                            ,
+                                            {{ booking.bookingInfants }} Infants
+                                        </span>
+                                    </ng-container>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="qrcode-container"
+                    [appPermission]="{
+                    features: [{
+
+                        feature: features.guestBooking.name,
+                        page: features.guestBooking.pages.overview.name,
+                        pageFeature: [
+                            features.guestBooking.pages.overview.features
+                                .qrCode.name
+                        ],
+                        pageFeatureCheck: 'or',
+                    }],
+                    mode: 'none'}"
+                >
+                    <img [src]="booking.qrcode" />
+                </div>
+                <div class="wrapper">
+                    <p-divider></p-divider>
+                    <div class="booking-pricing">
+                        <span class="h3">Price</span>
+                        <span class="h3">{{
+                            booking.bookingAmountDetail.bookingAmount
+                                | currency : 'USD'
+                        }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
