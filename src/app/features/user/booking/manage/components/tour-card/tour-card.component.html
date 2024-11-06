@@ -1,0 +1,502 @@
+<ng-container
+    *ngIf="{
+        status: status$ | async
+    } as data"
+>
+    <form [formGroup]="tourDetailsForm" class="tour-container">
+        <ng-container *ngIf="tour">
+            <div class="card-header-container">
+                <div>
+                    <div class="booking-number-container card">
+                        <p-badge [value]="index + ''"></p-badge>
+                        <span>Booking Number: </span>
+                        <span>{{ tour.bookingDetails.bookingnumber }}</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="resend-email-container">
+                        <button
+                            pButton
+                            class="btn-primary p-button-sm"
+                            (click)="resendEmail()"
+                            [loading]="data.status === 'loading'"
+                            [disabled]="data.status === 'loading'"
+                        >
+                            Resend order confirmation
+                        </button>
+                        <ng-container *ngIf="data.status === 'success'"
+                            ><span style="color: var(--green-400)"
+                                >Email sent</span
+                            ></ng-container
+                        >
+                        <ng-container *ngIf="data.status === 'error'">
+                            <span style="color: var(--red-400)"
+                                >Error resending email</span
+                            >
+                        </ng-container>
+                    </div>
+                    <ng-container
+                        *ngTemplateOutlet="removeButton"
+                    ></ng-container>
+                </div>
+            </div>
+            <div class="card-container">
+                <div class="image-text-container">
+                    <img
+                        [src]="tour.tourDetails.shoppingCartImagePath || ''"
+                        [alt]="tour.bookingDetails.tourName"
+                    />
+                    <div class="booking-details-container">
+                        <!-- tour name  -->
+                        <h3>{{ tour.bookingDetails.tourName }}</h3>
+                        <!-- booking details -->
+                        <div class="booking-details-inner-container">
+                            <div class="booking-details-section-container">
+                                <div class="row-container">
+                                    <!-- booking date -->
+                                    <div class="booking-detail-container">
+                                        <svg
+                                            width="18"
+                                            height="18"
+                                            viewBox="0 0 18 18"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M14.8721 2.25822H13.2054V1.42489C13.2054 1.20387 13.1176 0.991911 12.9614 0.83563C12.8051 0.67935 12.5931 0.591553 12.3721 0.591553C12.1511 0.591553 11.9391 0.67935 11.7829 0.83563C11.6266 0.991911 11.5388 1.20387 11.5388 1.42489V2.25822H6.53878V1.42489C6.53878 1.20387 6.45098 0.991911 6.2947 0.83563C6.13842 0.67935 5.92646 0.591553 5.70544 0.591553C5.48443 0.591553 5.27247 0.67935 5.11619 0.83563C4.95991 0.991911 4.87211 1.20387 4.87211 1.42489V2.25822H3.20544C2.5424 2.25822 1.90652 2.52161 1.43768 2.99045C0.968837 3.45929 0.705444 4.09518 0.705444 4.75822V14.7582C0.705444 15.4213 0.968837 16.0571 1.43768 16.526C1.90652 16.9948 2.5424 17.2582 3.20544 17.2582H14.8721C15.5352 17.2582 16.171 16.9948 16.6399 16.526C17.1087 16.0571 17.3721 15.4213 17.3721 14.7582V4.75822C17.3721 4.09518 17.1087 3.45929 16.6399 2.99045C16.171 2.52161 15.5352 2.25822 14.8721 2.25822ZM15.7054 14.7582C15.7054 14.9792 15.6176 15.1912 15.4614 15.3475C15.3051 15.5038 15.0931 15.5916 14.8721 15.5916H3.20544C2.98443 15.5916 2.77247 15.5038 2.61619 15.3475C2.45991 15.1912 2.37211 14.9792 2.37211 14.7582V8.92489H15.7054V14.7582ZM15.7054 7.25822H2.37211V4.75822C2.37211 4.53721 2.45991 4.32524 2.61619 4.16896C2.77247 4.01268 2.98443 3.92489 3.20544 3.92489H4.87211V4.75822C4.87211 4.97923 4.95991 5.19119 5.11619 5.34747C5.27247 5.50376 5.48443 5.59155 5.70544 5.59155C5.92646 5.59155 6.13842 5.50376 6.2947 5.34747C6.45098 5.19119 6.53878 4.97923 6.53878 4.75822V3.92489H11.5388V4.75822C11.5388 4.97923 11.6266 5.19119 11.7829 5.34747C11.9391 5.50376 12.1511 5.59155 12.3721 5.59155C12.5931 5.59155 12.8051 5.50376 12.9614 5.34747C13.1176 5.19119 13.2054 4.97923 13.2054 4.75822V3.92489H14.8721C15.0931 3.92489 15.3051 4.01268 15.4614 4.16896C15.6176 4.32524 15.7054 4.53721 15.7054 4.75822V7.25822Z"
+                                                fill="#053654"
+                                            />
+                                        </svg>
+                                        <span>
+                                            {{
+                                                tour.bookingDetails.bookingDate
+                                                    | date : 'fullDate'
+                                            }}
+                                        </span>
+                                    </div>
+
+                                    <!-- participants -->
+                                    <div class="booking-detail-container">
+                                        <svg
+                                            width="21"
+                                            height="13"
+                                            viewBox="0 0 21 13"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M10.9241 0.697632C11.6976 0.697632 12.4395 1.00492 12.9865 1.5519C13.5334 2.09888 13.8407 2.84075 13.8407 3.6143C13.8407 4.38785 13.5334 5.12971 12.9865 5.67669C12.4395 6.22367 11.6976 6.53096 10.9241 6.53096C10.1505 6.53096 9.40866 6.22367 8.86168 5.67669C8.3147 5.12971 8.00741 4.38785 8.00741 3.6143C8.00741 2.84075 8.3147 2.09888 8.86168 1.5519C9.40866 1.00492 10.1505 0.697632 10.9241 0.697632ZM5.09074 2.78096C5.55741 2.78096 5.99074 2.90597 6.36574 3.13096C6.24074 4.32263 6.59074 5.50596 7.30741 6.43096C6.89074 7.23096 6.05741 7.78096 5.09074 7.78096C4.4277 7.78096 3.79181 7.51757 3.32297 7.04873C2.85413 6.57989 2.59074 5.94401 2.59074 5.28096C2.59074 4.61792 2.85413 3.98204 3.32297 3.5132C3.79181 3.04436 4.4277 2.78097 5.09074 2.78096ZM16.7574 2.78096C17.4204 2.78096 18.0563 3.04436 18.5252 3.5132C18.994 3.98204 19.2574 4.61792 19.2574 5.28096C19.2574 5.94401 18.994 6.57989 18.5252 7.04873C18.0563 7.51757 17.4204 7.78096 16.7574 7.78096C15.7907 7.78096 14.9574 7.23096 14.5407 6.43096C15.2673 5.49298 15.6045 4.31113 15.4824 3.13096C15.8574 2.90597 16.2907 2.78096 16.7574 2.78096ZM5.50741 11.3226C5.50741 9.59763 7.93241 8.19763 10.9241 8.19763C13.9157 8.19763 16.3407 9.59763 16.3407 11.3226V12.781H5.50741V11.3226ZM0.924072 12.781V11.531C0.924072 10.3726 2.49907 9.39763 4.63241 9.1143C4.14074 9.68096 3.84074 10.4643 3.84074 11.3226V12.781H0.924072ZM20.9241 12.781H18.0074V11.3226C18.0074 10.4643 17.7074 9.68096 17.2157 9.1143C19.3491 9.39763 20.9241 10.3726 20.9241 11.531V12.781Z"
+                                                fill="#053654"
+                                            />
+                                        </svg>
+                                        <span>
+                                            {{
+                                                tourDetailsForm.value
+                                                    .bookingAdults
+                                                    | participants
+                                                        : tourDetailsForm.value
+                                                              .bookingChildren
+                                                        : tourDetailsForm.value
+                                                              .bookingInfants
+                                            }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p-divider></p-divider>
+
+                            <!-- time -->
+                            <div class="booking-details-section-container">
+                                <div class="booking-detail-container">
+                                    <svg
+                                        width="17"
+                                        height="18"
+                                        viewBox="0 0 17 18"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M8.39383 0.591553C3.79383 0.591553 0.0688274 4.32489 0.0688274 8.92489C0.0688274 13.5249 3.79383 17.2582 8.39383 17.2582C13.0022 17.2582 16.7355 13.5249 16.7355 8.92489C16.7355 4.32489 13.0022 0.591553 8.39383 0.591553ZM8.40216 15.5916C4.71883 15.5916 1.73549 12.6082 1.73549 8.92489C1.73549 5.24155 4.71883 2.25822 8.40216 2.25822C12.0855 2.25822 15.0688 5.24155 15.0688 8.92489C15.0688 12.6082 12.0855 15.5916 8.40216 15.5916ZM8.81883 4.75822H7.56883V9.75822L11.9438 12.3832L12.5688 11.3582L8.81883 9.13322V4.75822Z"
+                                            fill="#053654"
+                                        />
+                                    </svg>
+                                    <span>
+                                        Activity starts at
+                                        {{
+                                            tour.bookingDetails.bookingTime
+                                                | customTime
+                                        }}
+                                    </span>
+                                </div>
+
+                                <!-- disable this if no other alternate time available -->
+                                <button
+                                    pButton
+                                    icon="pi pi-pencil"
+                                    class="btn btn-primary-inverse"
+                                    [disabled]="alternateTimeDisabled"
+                                    (click)="viewAlternateTimes()"
+                                >
+                                    View Alternate Times
+                                </button>
+                            </div>
+                            <p-divider></p-divider>
+
+                            <!-- cruise information -->
+                            <ng-container *ngIf="tour.bookingDetails.shipName">
+                                <div class="booking-details-section-container">
+                                    <div class="booking-detail-container">
+                                        <img
+                                            src="/assets/icons/ic_search_boat.svg"
+                                            alt="Cruise Ship"
+                                        />
+                                        <ng-container
+                                            *ngIf="
+                                                tour.bookingDetails.shipName ===
+                                                    'Booked directly with us';
+                                                else shipBooking
+                                            "
+                                        >
+                                            <span
+                                                >Arriving by: Independently -
+                                                Not on a Cruise Ship</span
+                                            >
+                                        </ng-container>
+                                        <ng-template #shipBooking>
+                                            <span
+                                                >{{
+                                                    tour.bookingDetails
+                                                        .shipName
+                                                }},
+                                                <ng-container
+                                                    *ngIf="
+                                                        tour.bookingDetails
+                                                            .shipCompanyName
+                                                    "
+                                                >
+                                                    {{
+                                                        tour.bookingDetails
+                                                            .shipCompanyName
+                                                    }}
+                                                </ng-container></span
+                                            >
+                                        </ng-template>
+                                    </div>
+                                    <!-- disable this if no other arrival method available -->
+                                    <button
+                                        pButton
+                                        icon="pi pi-refresh"
+                                        class="btn btn-primary-inverse"
+                                        (click)="changeArrivalMethod()"
+                                        [disabled]="
+                                            alternateArrivalMethodDisabled
+                                        "
+                                    >
+                                        Change Arrival Method
+                                    </button>
+                                </div>
+                            </ng-container>
+                            <div class="desktop">
+                                <p-divider></p-divider>
+                                <ng-container
+                                    *ngTemplateOutlet="leadTravelerForm"
+                                ></ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="desktop">
+                    <p-divider layout="vertical"></p-divider>
+                </div>
+                <div class="mobile">
+                    <p-divider></p-divider>
+                </div>
+                <!-- additional booking details -->
+                <div class="additional-booking-details-container">
+                    <div class="mobile">
+                        <ng-container
+                            *ngTemplateOutlet="leadTravelerForm"
+                        ></ng-container>
+                    </div>
+
+                    <div class="participants-container">
+                        <!-- adults -->
+                        <div class="participant-container">
+                            <div class="description">
+                                <label for="adult">
+                                    <img
+                                        src="/assets/icons/ic_booking_adult.svg"
+                                        alt="Adult icon"
+                                    />
+
+                                    <span>Adults</span>
+                                </label>
+                                <span>(13-99)</span>
+                            </div>
+                            <p-inputNumber
+                                inputId="adult"
+                                formControlName="bookingAdults"
+                                [showButtons]="true"
+                                buttonLayout="horizontal"
+                                spinnerMode="horizontal"
+                                [min]="0"
+                                [step]="1"
+                                decrementButtonClass="stepper-button"
+                                incrementButtonClass="stepper-button"
+                                incrementButtonIcon="pi pi-plus"
+                                decrementButtonIcon="pi pi-minus"
+                                inputStyleClass="participant-input"
+                            >
+                            </p-inputNumber>
+                        </div>
+
+                        <!-- children -->
+                        <div class="participant-container">
+                            <div class="description">
+                                <label for="children">
+                                    <img
+                                        src="/assets/icons/ic_booking_children.svg"
+                                        alt="Children icon"
+                                    />
+                                    <span>Children</span>
+                                </label>
+                                <span>(2-12)</span>
+                            </div>
+                            <p-inputNumber
+                                inputId="children"
+                                formControlName="bookingChildren"
+                                [showButtons]="true"
+                                buttonLayout="horizontal"
+                                spinnerMode="horizontal"
+                                [min]="0"
+                                [step]="1"
+                                decrementButtonClass="stepper-button"
+                                incrementButtonClass="stepper-button"
+                                incrementButtonIcon="pi pi-plus"
+                                decrementButtonIcon="pi pi-minus"
+                                inputStyleClass="participant-input"
+                            >
+                            </p-inputNumber>
+                        </div>
+
+                        <!-- infants -->
+                        <div class="participant-container">
+                            <div class="description">
+                                <label for="infant">
+                                    <img
+                                        src="/assets/icons/ic_booking_infant.svg"
+                                        alt="Infant icon"
+                                    />
+                                    <span>Infants</span>
+                                </label>
+                                <span>(Under 2)</span>
+                            </div>
+                            <p-inputNumber
+                                inputId="infant"
+                                formControlName="bookingInfants"
+                                [showButtons]="true"
+                                buttonLayout="horizontal"
+                                spinnerMode="horizontal"
+                                [min]="0"
+                                [step]="1"
+                                decrementButtonClass="stepper-button"
+                                incrementButtonClass="stepper-button"
+                                incrementButtonIcon="pi pi-plus"
+                                decrementButtonIcon="pi pi-minus"
+                                inputStyleClass="participant-input"
+                            >
+                            </p-inputNumber>
+                        </div>
+                    </div>
+
+                    <!-- price -->
+                    <div class="prices-container">
+                        <h4>Price</h4>
+                        <div class="price-container">
+                            <span
+                                >{{ tourDetailsForm.value.bookingAdults || 0 }}
+                                Adults X
+                                {{
+                                    tour.bookingDetails.bookingAmountDetail
+                                        .adultPrice | currency : 'USD'
+                                }}</span
+                            >
+                            <span>{{
+                                (tourDetailsForm.value.bookingAdults || 0) *
+                                    tour.bookingDetails.bookingAmountDetail
+                                        .adultPrice | currency : 'USD'
+                            }}</span>
+                        </div>
+                        <div class="price-container">
+                            <span
+                                >{{
+                                    tourDetailsForm.value.bookingChildren || 0
+                                }}
+                                Children X
+                                {{
+                                    tour.bookingDetails.bookingAmountDetail
+                                        .childrenPrice | currency : 'USD'
+                                }}</span
+                            >
+                            <span>{{
+                                (tourDetailsForm.value.bookingChildren || 0) *
+                                    tour.bookingDetails.bookingAmountDetail
+                                        .childrenPrice | currency : 'USD'
+                            }}</span>
+                        </div>
+                        <div
+                            *ngIf="
+                                tourDetailsForm.value.bookingInfants &&
+                                tourDetailsForm.value.bookingInfants > 0
+                            "
+                            class="price-container"
+                        >
+                            <span
+                                >{{
+                                    tourDetailsForm.value.bookingInfants || 0
+                                }}
+                                Infants</span
+                            >
+                        </div>
+                        <div class="price-container subtotal-container">
+                            <span>Sub Total</span>
+                            <span>
+                                {{
+                                    (tourDetailsForm.value.bookingAdults || 0) *
+                                        tour.bookingDetails.bookingAmountDetail
+                                            .adultPrice +
+                                        (tourDetailsForm.value
+                                            .bookingChildren || 0) *
+                                            tour.bookingDetails
+                                                .bookingAmountDetail
+                                                .childrenPrice
+                                        | currency : 'USD'
+                                }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="additional-details-container">
+                <app-pickup-information
+                    [details]="tour.bookingDetails"
+                    [pickupLocations]="tour.pickupLocations"
+                ></app-pickup-information>
+                <!-- <div
+                    class="qrcode-outer-container"
+                    [appPermission]="{
+                    features: [{
+
+                        feature: features.guestBooking.name,
+                        page: features.guestBooking.pages.manage.name,
+                        pageFeature: [
+                            features.guestBooking.pages.manage.features
+                                .qrCode.name
+                        ],
+                        pageFeatureCheck: 'or',
+                    }],
+                    mode: 'none'
+                }"
+                >
+                    <div #qrCodeContainer class="qrcode-container"></div>
+                </div> -->
+                <div
+                    class="qrcode-outer-container"
+                    [appPermission]="{
+                    features: [{
+
+                        feature: features.guestBooking.name,
+                        page: features.guestBooking.pages.manage.name,
+                        pageFeature: [
+                            features.guestBooking.pages.manage.features
+                                .qrCode.name
+                        ],
+                        pageFeatureCheck: 'or',
+                    }],
+                    mode: 'none'
+                }"
+                >
+                    <img class="qrcode-container" [src]="tour.qrcode" />
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- remove button -->
+        <ng-template #removeButton>
+            <div class="button-remove-container">
+                <button class="button-remove" (click)="removeDialog()">
+                    <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M15.8332 3.33333H12.9165L12.0832 2.5H7.9165L7.08317 3.33333H4.1665V5H15.8332M4.99984 15.8333C4.99984 16.2754 5.17543 16.6993 5.48799 17.0118C5.80055 17.3244 6.22448 17.5 6.6665 17.5H13.3332C13.7752 17.5 14.1991 17.3244 14.5117 17.0118C14.8242 16.6993 14.9998 16.2754 14.9998 15.8333V5.83333H4.99984V15.8333Z"
+                            fill="#EC2727"
+                        />
+                    </svg>
+                    <span>Remove</span>
+                </button>
+            </div>
+        </ng-template>
+
+        <!-- lead traveler form -->
+        <ng-template #leadTravelerForm>
+            <div class="lead-traveler-container">
+                <span class="title"
+                    >Lead Traveler - Who’s Travelling
+                    <span
+                        pTooltip="The name of an individual participating in this tour who will serve as the primary contact on the day of travel."
+                        class="tooltip2 with-manual-width"
+                    >
+                        <svg
+                            width="21"
+                            height="23"
+                            viewBox="0 0 21 23"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <rect
+                                y="0.936096"
+                                width="20.7174"
+                                height="21.487"
+                                rx="10.3587"
+                                fill="#EB9521"
+                                fill-opacity="0.2"
+                            />
+                            <path
+                                d="M9.19124 13.0403V12.9263C9.19417 12.3973 9.24385 11.9764 9.3403 11.6637C9.43968 11.351 9.57997 11.0996 9.76118 10.9096C9.94239 10.7167 10.1631 10.5399 10.4232 10.3792C10.6015 10.2681 10.7608 10.1468 10.9011 10.0153C11.0443 9.88083 11.1568 9.73177 11.2386 9.56809C11.3205 9.40149 11.3614 9.2159 11.3614 9.01131C11.3614 8.78041 11.3073 8.5802 11.1992 8.41068C11.091 8.24116 10.9449 8.10964 10.7608 8.01611C10.5795 7.92258 10.3764 7.87582 10.1514 7.87582C9.94385 7.87582 9.74657 7.92112 9.55951 8.01173C9.37538 8.09941 9.22193 8.23386 9.09918 8.41507C8.97934 8.59335 8.91212 8.81987 8.89751 9.09461H7.33676C7.35137 8.53928 7.48582 8.07457 7.7401 7.70045C7.9973 7.32634 8.33634 7.04576 8.75721 6.8587C9.18101 6.67164 9.64865 6.57812 10.1601 6.57812C10.7184 6.57812 11.2094 6.67603 11.6332 6.87185C12.0599 7.06768 12.3917 7.3468 12.6284 7.70922C12.8681 8.06872 12.9879 8.49544 12.9879 8.98939C12.9879 9.32258 12.9338 9.6207 12.8257 9.88375C12.7205 10.1468 12.5699 10.3806 12.3741 10.5852C12.1783 10.7898 11.9459 10.9725 11.677 11.1332C11.4403 11.2794 11.2459 11.4313 11.094 11.5892C10.9449 11.747 10.8338 11.9326 10.7608 12.146C10.6906 12.3564 10.6541 12.6165 10.6512 12.9263V13.0403H9.19124ZM9.95408 15.776C9.69103 15.776 9.46452 15.6825 9.27454 15.4954C9.08456 15.3084 8.98957 15.0804 8.98957 14.8115C8.98957 14.5485 9.08456 14.3234 9.27454 14.1364C9.46452 13.9493 9.69103 13.8558 9.95408 13.8558C10.2142 13.8558 10.4393 13.9493 10.6292 14.1364C10.8221 14.3234 10.9186 14.5485 10.9186 14.8115C10.9186 14.9898 10.8733 15.152 10.7827 15.2981C10.695 15.4443 10.5781 15.5612 10.432 15.6489C10.2887 15.7336 10.1294 15.776 9.95408 15.776Z"
+                                fill="#9F5902"
+                            />
+                        </svg>
+                    </span>
+                </span>
+                <div class="input-container">
+                    <label for="leadTravelerFirst">First Name</label>
+                    <input
+                        formControlName="bookingLeadTravelerFirst"
+                        id="leadTravelerFirst"
+                        name="leadTravelerFirst"
+                        type="text"
+                        autocomplete="off"
+                        pInputText
+                    />
+                </div>
+                <div class="input-container">
+                    <label for="leadTravelerLast">Last Name</label>
+                    <input
+                        formControlName="bookingLeadTravelerLast"
+                        id="leadTravelerLast"
+                        name="leadTravelerLast"
+                        type="text"
+                        autocomplete="off"
+                        pInputText
+                    />
+                </div>
+            </div>
+        </ng-template>
+    </form>
+    <p-divider></p-divider>
+</ng-container>

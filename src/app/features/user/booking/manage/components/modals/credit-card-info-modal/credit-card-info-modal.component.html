@@ -1,0 +1,137 @@
+<ng-container
+    *ngIf="{
+        isOpen: isOpen$ | async,
+        context: context$ | async,
+        isLoading: isLoading$ | async
+    } as data"
+>
+    <p-dialog
+        [(visible)]="data.isOpen"
+        (onHide)="close()"
+        [modal]="true"
+        [style]="{ width: '60vw', height: 'auto' }"
+        [breakpoints]="{ '768px': '90vw' }"
+        [draggable]="false"
+        [resizable]="false"
+    >
+        <ng-template pTemplate="header">
+            <h2>Update Booking</h2>
+        </ng-template>
+        <ng-container *ngIf="data.context">
+            <div class="credit-card-info-modal-container">
+                <ng-container *ngIf="data.context.notes as notes">
+                    <div class="row-container">
+                        <span>{{ notes }}</span>
+                    </div>
+                </ng-container>
+                <div class="row-container">
+                    <span class="label">Updated Total:</span>
+                    <span class="line-through">{{
+                        data.context.generalBookingInfo.bookingAmount.totalCost
+                            | currency : 'USD'
+                    }}</span>
+                    <i class="pi pi-arrow-right"></i>
+
+                    <span>{{
+                        data.context.updatedTotalBooking.totalCost
+                            | currency : 'USD'
+                    }}</span>
+                </div>
+
+                <form [formGroup]="paymentInfoForm">
+                    <div class="input-container">
+                        <div class="textfield-container full-width">
+                            <label for="cardHolderName">Card Holder Name</label>
+                            <input
+                                formControlName="cardHolderName"
+                                id="cardHolderName"
+                                name="cardHolderName"
+                                type="text"
+                                autocomplete="off"
+                                pInputText
+                            />
+                        </div>
+                        <div class="textfield-container full-width">
+                            <label for="cardNumber">Card Number</label>
+                            <span class="card-wrapper">
+                                <p-inputMask
+                                    [mask]="masks.cardNumber.mask"
+                                    [unmask]="true"
+                                    [autoClear]="false"
+                                    formControlName="cardNumber"
+                                    id="cardNumber"
+                                    name="cardNumber"
+                                    type="text"
+                                    autocomplete="off"
+                                ></p-inputMask>
+
+                                <ng-container *ngIf="cardType">
+                                    <app-cc-identification
+                                        class="card-type-icon"
+                                        [cardType]="cardType"
+                                    ></app-cc-identification>
+                                </ng-container>
+                            </span>
+                        </div>
+                        <div class="textfield-container">
+                            <label for="expDateMonth">Expiration Date</label>
+                            <div class="expiration-date-container">
+                                <p-dropdown
+                                    appendTo="body"
+                                    formControlName="expDateMonth"
+                                    id="expDateMonth"
+                                    name="expDateMonth"
+                                    [options]="ccMonthOptions"
+                                    class="date-input"
+                                    [style]="{ width: '100%' }"
+                                    placeholder="MM"
+                                ></p-dropdown>
+                                /
+                                <p-dropdown
+                                    appendTo="body"
+                                    formControlName="expDateYear"
+                                    id="expDateYear"
+                                    name="expDateYear"
+                                    [options]="ccYearOptions"
+                                    class="date-input"
+                                    [style]="{ width: '100%' }"
+                                    placeholder="YYYY"
+                                ></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="textfield-container">
+                            <label for="cardCode">Card Code</label>
+                            <input
+                                formControlName="cardCode"
+                                id="cardCode"
+                                name="cardCode"
+                                type="text"
+                                autocomplete="off"
+                                pInputText
+                            />
+                        </div>
+                    </div>
+                </form>
+
+                <div class="action-buttons-container">
+                    <button
+                        pButton
+                        [disabled]="data.isLoading === true"
+                        class="btn-primary-inverse"
+                        (click)="close()"
+                    >
+                        Close
+                    </button>
+                    <button
+                        pButton
+                        [loading]="data.isLoading === true"
+                        class="btn-primary"
+                        (click)="submitUpdateBooking()"
+                    >
+                        Update Booking
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+    </p-dialog>
+</ng-container>

@@ -1,0 +1,10 @@
+<div class="notes-container">
+    <h2>Notes</h2>
+    <textarea
+        id="requests"
+        name="requests"
+        pInputTextarea
+        [ngModel]="bookingNotes$ | async"
+        (ngModelChange)="onModelChange($event)"
+    ></textarea>
+</div>

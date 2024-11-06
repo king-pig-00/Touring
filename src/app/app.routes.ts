@@ -20,6 +20,12 @@ export const ROUTES: Route[] = [
         data: { roleId: 1 },
     },
     {
+        path: 'user',
+        loadChildren: () =>
+            import('./features/user/user.routes').then((r) => r.USER_ROUTES),
+        canActivate: [AuthGuard],
+    },
+    {
         path: 'unauthorized',
         loadComponent: () =>
             import(

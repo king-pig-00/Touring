@@ -1,0 +1,42 @@
+<ng-container *ngIf="bookingDetails">
+    <div class="pickup-container">
+        <h2>Pickup/Drop-Off</h2>
+        <p-dropdown
+            optionLabel="pickupLocationName"
+            optionValue="pickupLocationID"
+            placeholder="Select a Different Pickup Location"
+            [options]="pickupLocations || []"
+            [(ngModel)]="pickupLocationId"
+            (ngModelChange)="updatePickupLocation()"
+        ></p-dropdown>
+        <div class="contents-container">
+            <div class="text-outer-container">
+                <svg
+                    width="16"
+                    height="15"
+                    viewBox="0 0 16 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M15.7445 7.73633C15.7445 8.22852 15.3344 8.61406 14.8695 8.61406H13.9945L14.0137 12.9945C14.0137 13.0684 14.0082 13.1422 14 13.216V13.6562C14 14.2605 13.5105 14.75 12.9062 14.75H12.4688C12.4387 14.75 12.4086 14.75 12.3785 14.7473C12.3402 14.75 12.302 14.75 12.2637 14.75H11.375H10.7188C10.1145 14.75 9.625 14.2605 9.625 13.6562V13V11.25C9.625 10.766 9.23398 10.375 8.75 10.375H7C6.51602 10.375 6.125 10.766 6.125 11.25V13V13.6562C6.125 14.2605 5.63555 14.75 5.03125 14.75H4.375H3.50273C3.46172 14.75 3.4207 14.7473 3.37969 14.7445C3.34687 14.7473 3.31406 14.75 3.28125 14.75H2.84375C2.23945 14.75 1.75 14.2605 1.75 13.6562V10.5938C1.75 10.5691 1.75 10.5418 1.75273 10.5172V8.61406H0.875C0.382812 8.61406 0 8.23125 0 7.73633C0 7.49023 0.0820312 7.27148 0.273438 7.08008L7.28437 0.96875C7.47578 0.777344 7.69453 0.75 7.88594 0.75C8.07734 0.75 8.29609 0.804688 8.46016 0.941406L15.4437 7.08008C15.6625 7.27148 15.7719 7.49023 15.7445 7.73633Z"
+                        fill="#B5B5C3"
+                    />
+                </svg>
+                <div class="text-container">
+                    <span *ngIf="bookingDetails.pickupAddress">{{
+                        bookingDetails.pickupAddress
+                    }}</span>
+                    <span *ngIf="bookingDetails.pickupLocationName">{{
+                        bookingDetails.pickupLocationName
+                    }}</span>
+                </div>
+            </div>
+            <ng-container *ngIf="mapHTML">
+                <div class="map-container">
+                    <div [innerHtml]="mapHTML"></div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</ng-container>

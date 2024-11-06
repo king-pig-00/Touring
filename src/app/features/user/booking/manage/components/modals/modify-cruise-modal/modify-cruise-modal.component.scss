@@ -1,0 +1,22 @@
+.modify-ship-modal-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+
+    ::ng-deep .p-dropdown {
+        width: 100%;
+        max-width: 100% !important;
+    }
+    .action-buttons-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: var(--spacing-xs);
+
+        button {
+            width: calc(50% - var(--spacing-xs));
+            justify-content: center;
+        }
+    }
+}

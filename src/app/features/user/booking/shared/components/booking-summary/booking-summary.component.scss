@@ -1,0 +1,58 @@
+.card-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-xs) 0;
+    .booking-card-container {
+        width: 50%;
+        max-width: 350px;
+        .row-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.25rem 1.25rem;
+            border-radius: 0.25rem;
+            color: #3a3e44;
+            font-size: 1rem;
+            font-weight: 600;
+            span {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: var(--spacing-2xs);
+            }
+
+            h4 {
+                color: var(--color-gray-600);
+            }
+
+            &.total-container {
+                background-color: #053654;
+                color: #fff;
+                padding: 0.5rem 1.25rem;
+                margin-top: var(--spacing-2xs);
+            }
+        }
+    }
+}
+
+.feesbreakdown-tooltip {
+    margin-bottom: -6px;
+    white-space: pre-wrap;
+}
+
+@media screen and (max-width: 640px) {
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-sm);
+
+        .booking-card-container {
+            width: 100%;
+            max-width: none;
+        }
+    }
+}

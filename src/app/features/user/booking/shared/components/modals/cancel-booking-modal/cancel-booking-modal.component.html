@@ -1,0 +1,110 @@
+<ng-container
+    *ngIf="{
+        isOpen: isOpen$ | async,
+        context: context$ | async,
+        isLoading: isLoading$ | async
+    } as data"
+>
+    <p-dialog
+        [(visible)]="data.isOpen"
+        (onHide)="close()"
+        [modal]="true"
+        [style]="{ width: '60vw', height: 'auto' }"
+        [breakpoints]="{ '768px': '90vw' }"
+        [draggable]="false"
+        [resizable]="false"
+    >
+        <ng-template pTemplate="header">
+            <h2>Cancel Booking</h2>
+        </ng-template>
+        <ng-container *ngIf="data.context">
+            <div class="cancel-booking-modal-container">
+                <div class="row-container">
+                    <span class="label">Booking Amount:</span>
+                    <span>{{ originalBookingAmount | currency : 'USD' }}</span>
+                </div>
+
+                <!-- disabling the form for guest users -->
+                <!-- <div class="textfield-container">
+                    <form
+                        [formGroup]="cancellationForm"
+                        (ngSubmit)="submitCancellation()"
+                    >
+                        <div class="form-field-container">
+                            <label
+                                class="form-control-label"
+                                for="cancellationReason"
+                                >Select Cancellation Reason</label
+                            >
+                            <p-dropdown
+                                formControlName="cancellationReasonId"
+                                id="cancellationReason"
+                                [options]="data.context.cancellationReasons"
+                                optionLabel="cancellationReasonName"
+                                optionValue="cancellationReasonID"
+                                placeholder="Select Cancellation Reason"
+                                [autoDisplayFirst]="false"
+                                appendTo="body"
+                            >
+                            </p-dropdown>
+                        </div>
+
+                        <div class="form-field-container">
+                            <label class="form-control-label" for="notes"
+                                >Notes</label
+                            >
+                            <textarea
+                                id="notes"
+                                name="notes"
+                                pInputTextarea
+                                formControlName="notes"
+                            ></textarea>
+                        </div>
+
+                        <div class="form-field-row-container">
+                            <p-checkbox
+                                formControlName="applyRefundPolicy"
+                                [binary]="true"
+                                inputId="applyRefundPolicy"
+                            ></p-checkbox>
+                            <label for="applyRefundPolicy"
+                                >Apply Refund Policy</label
+                            >
+                        </div>
+                    </form>
+                </div> -->
+
+                <div class="row-container">
+                    <span class="label">Refund Amount</span>
+                    <span>{{
+                        estimatedRefundAmount || 0 | currency : 'USD'
+                    }}</span>
+                </div>
+                <ng-container *ngIf="refundPolicyDescription">
+                    <div class="refund-policy-description-container">
+                        <span class="label">Refund Policy</span>
+                        <p>{{ refundPolicyDescription }}</p>
+                    </div>
+                </ng-container>
+                <div class="action-buttons-container">
+                    <button
+                        pButton
+                        [disabled]="data.isLoading === true"
+                        class="btn-primary"
+                        (click)="close()"
+                    >
+                        Close
+                    </button>
+                    <button
+                        pButton
+                        [loading]="data.isLoading === true"
+                        class="btn-primary-inverse"
+                        (click)="submitCancellation()"
+                    >
+                        Cancel Booking
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+    </p-dialog>
+</ng-container>

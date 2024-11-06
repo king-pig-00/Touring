@@ -1,0 +1,84 @@
+<ng-container
+    *ngIf="{
+        isActive: (isActive$ | async) === true,
+        hasUnsavedChanges: (hasUnsavedChanges$ | async)
+    } as data"
+>
+    <div class="container">
+        <div class="header-outer-container">
+            <div class="header-container">
+                <h1><a [routerLink]="['../']"> Bookings </a></h1>
+                <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 32 32"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M12.5332 24L10.6665 22.1333L16.7998 16L10.6665 9.86667L12.5332 8L20.5332 16L12.5332 24Z"
+                        fill="#676767"
+                    />
+                </svg>
+                <h1 class="current">Manage booking</h1>
+            </div>
+            <div
+                class="buttons-container"
+                [ngClass]="{ 'p-disabled': data.isActive === false }"
+            >
+                <button pButton class="btn-primary-inverse" (click)="cancel()">
+                    Cancel Order
+                </button>
+                <button pButton class="btn-primary" (click)="save()">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+
+        <div [ngClass]="{ 'p-disabled': data.isActive === false }">
+            <div class="card bookings-container">
+                <ng-container *ngIf="booking$ | async as booking">
+                    <ng-container *ngFor="let tour of booking; let i = index">
+                        <div class="booking-container">
+                            <app-tour-card
+                                [tour]="tour"
+                                [index]="i + 1"
+                            ></app-tour-card>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+
+            <ng-container *ngIf="bookingSummary$ | async as bookingSummary">
+                <app-booking-summary
+                    [booking]="bookingSummary"
+                ></app-booking-summary>
+            </ng-container>
+            <app-notes></app-notes>
+        </div>
+        <div class="status-banner" [class.display]="data.hasUnsavedChanges">
+            <span
+                >You have unsaved changes. Make sure to save your changes before
+                you leave the page.</span
+            >
+        </div>
+    </div>
+
+    <div
+        class="footer-container"
+        [ngClass]="{ 'p-disabled': data.isActive === false }"
+    >
+        <button pButton class="btn-primary-inverse" (click)="cancel()">
+            Cancel Order
+        </button>
+        <button pButton class="btn-primary" (click)="save()">
+            Save Changes
+        </button>
+    </div>
+
+    <!-- modals -->
+    <app-cancel-booking-modal></app-cancel-booking-modal>
+    <app-credit-card-info-modal></app-credit-card-info-modal>
+    <app-modify-cruise-modal></app-modify-cruise-modal>
+    <app-modify-time-modal></app-modify-time-modal>
+</ng-container>
