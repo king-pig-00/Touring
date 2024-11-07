@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ApiRoutes } from '../../constants';
-import { SignedUser } from '../../models';
+import { User } from '../../models';
 
 @Injectable({
     providedIn: 'root',
@@ -18,11 +18,11 @@ export class AuthService {
         return localStorage.getItem('authToken');
     }
 
-    getRoleId(): number | null {
+    getRoles(): string[] | null {
         const token = this.getToken();
         if (token) {
             const decodedToken = this.decodeToken(token);
-            return decodedToken.roleId || null;
+            return decodedToken.roles || null;
         }
         return null;
     }
@@ -53,7 +53,7 @@ export class AuthService {
     signin(email: string, password: string) {
         return this.http.post<{
             success: boolean;
-            data: SignedUser;
+            data: User;
             error?: string;
         }>(`${ApiRoutes.auth}Signin`, { email, password });
     }
@@ -66,7 +66,7 @@ export class AuthService {
     ) {
         return this.http.post<{
             success: boolean;
-            data: SignedUser;
+            data: User;
             error?: string;
         }>(`${ApiRoutes.auth}Signup`, {
             firstName,

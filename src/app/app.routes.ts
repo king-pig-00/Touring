@@ -17,7 +17,7 @@ export const ROUTES: Route[] = [
                 (r) => r.OPERATOR_ROUTES
             ),
         canActivate: [AuthGuard, RoleGuard],
-        data: { roleId: 1 },
+        data: { roles: ['admin', 'agent'] },
     },
     {
         path: 'user',
