@@ -19,7 +19,7 @@ export const OPERATOR_ROUTES: Route[] = [
                         './pages/company-settings/company-settings.routes'
                     ).then((r) => r.BOOKING_MANAGEMENT_ROUTES),
                 canActivate: [AuthGuard, RoleGuard],
-                data: { roleId: 1 },
+                data: { roles: ['admin', 'agent'] },
             },
             // {
             //     path: 'user-management',

@@ -17,13 +17,16 @@ export class RoleGuard implements CanActivate {
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): boolean {
-        const expectedRoleId = next.data['roleId'] as number;
-        const userRoleId = this.authService.getRoleId();
-        if (userRoleId !== expectedRoleId) {
-            this.router.navigate(['/unauthorized']);
-            return false;
-        }
+        const expectedRoles = next.data['roles'] as string[];
+        const userRoles = this.authService.getRoles();
 
-        return true;
+        if (
+            userRoles &&
+            userRoles?.some((element) => expectedRoles.includes(element))
+        ) {
+            return true;
+        }
+        this.router.navigate(['/unauthorized']);
+        return false;
     }
 }
