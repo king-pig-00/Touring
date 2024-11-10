@@ -57,23 +57,23 @@ export class CompanyInfoState {
             });
     }
 
-    // saveCompanyInfo(config: CompanyInfoConfig): Promise<void> {
-    //     this.updateStatus('saveCompanyInfo', 'loading');
-    //     return lastValueFrom(
-    //         this.companySettingsApiService.saveCompanyInfo(config)
-    //     )
-    //         .then((res) => {
-    //             this.updateStatus('saveCompanyInfo', 'success');
-    //             this.companyInfo$.next(res.data);
-    //         })
-    //         .then(() => {
-    //             return Promise.resolve();
-    //         })
-    //         .catch((error) => {
-    //             this.updateStatus('saveCompanyInfo', 'error');
-    //             return Promise.reject(error);
-    //         });
-    // }
+    saveCompanyInfo(config: CompanyInfo): Promise<void> {
+        this.updateStatus('saveCompanyInfo', 'loading');
+        return lastValueFrom(
+            this.companySettingsApiService.saveCompanyInfo(config)
+        )
+            .then((res) => {
+                this.updateStatus('saveCompanyInfo', 'success');
+                this.companyInfo$.next(res.data);
+            })
+            .then(() => {
+                return Promise.resolve();
+            })
+            .catch((error) => {
+                this.updateStatus('saveCompanyInfo', 'error');
+                return Promise.reject(error);
+            });
+    }
 
     private updateStatus(
         key: 'loadCompanyInfo' | 'saveCompanyInfo',

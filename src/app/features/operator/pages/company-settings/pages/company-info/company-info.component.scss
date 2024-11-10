@@ -1,0 +1,97 @@
+.content-container {
+    display: flex;
+    width: 100%;
+    gap: var(--spacing-sm);
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        width: 100%;
+        .row-container {
+            display: flex;
+            flex-direction: row;
+            gap: var(--spacing-xs);
+            flex-wrap: wrap;
+            .col-container {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                width: calc(33% - var(--spacing-2xs));
+                &.half-width {
+                    width: calc(50% - var(--spacing-2xs));
+                }
+                &.two-third-width {
+                    width: calc(66% - var(--spacing-2xs));
+                }
+                &.full-width {
+                    width: 100%;
+                }
+                &.fourth-width {
+                    width: calc(24.5% - var(--spacing-2xs));
+                }
+            }
+            h4 {
+                width: 100%;
+                margin: 0;
+            }
+        }
+        .img-container {
+            display: flex;
+            flex-direction: column;
+            margin-top: 8px;
+            .file-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-height: 225px;
+                gap: var(--spacing-2xs);
+                padding: var(--spacing-sm);
+                border: 1px dashed var(--color-gray-400);
+                background-color: var(--color-gray-100);
+                .img-container {
+                    position: relative;
+                    img {
+                        max-width: 100%;
+                        width: 250px;
+                        height: auto;
+                        border-radius: var(--border-radius-base);
+                        overflow: hidden;
+                        object-fit: cover;
+                    }
+                }
+                .img-action-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: var(--spacing-2xs);
+                    align-items: center;
+                    button {
+                        width: 150px;
+                    }
+                    input {
+                        opacity: 0;
+                    }
+                }
+            }
+        }
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            button {
+                padding: var(--spacing-xs) var(--spacing-base);
+            }
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    .content-container {
+        form {
+            .row-container {
+                .col-container {
+                    width: 100% !important;
+                    flex-grow: 1;
+                }
+            }
+        }
+    }
+}

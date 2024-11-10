@@ -1,8 +1,240 @@
-<div class="container">
-    <div class="header-container">
-        <h2>Company Info</h2>
+<ng-container
+    *ngIf="{
+        logoImgSrc: logoImgSrc$ | async,
+    } as data"
+>
+    <div class="container">
+        <div class="header-container">
+            <h2>Company Info</h2>
+        </div>
+        <div class="content-container">
+            <form [formGroup]="companyInfoForm">
+                <div class="row-container">
+                    <div class="col-container half-width">
+                        <label for="companyName" class="form-control-label"
+                            >Company Name</label
+                        >
+                        <input
+                            formControlName="companyName"
+                            name="companyName"
+                            type="text"
+                            class="form-control form-control-custom"
+                            autocomplete="off"
+                            pInputText
+                        />
+                    </div>
+                    <div class="col-container half-width">
+                        <label for="email" class="form-control-label"
+                            >Email</label
+                        >
+                        <input
+                            formControlName="email"
+                            name="email"
+                            type="text"
+                            class="form-control form-control-custom"
+                            autocomplete="off"
+                            pInputText
+                        />
+                    </div>
+                    <div class="col-container full-width">
+                        <label
+                            for="companyDescription"
+                            class="form-control-label"
+                            >Descriptions</label
+                        >
+                        <textarea
+                            rows="5"
+                            pInputTextarea
+                            formControlName="companyDescription"
+                        ></textarea>
+                    </div>
+                    <div class="col-container half-width">
+                        <label for="generalPhone" class="form-control-label"
+                            >General Phone</label
+                        >
+                        <app-phone-number
+                            [required]="true"
+                            formControlName="generalPhone"
+                        ></app-phone-number>
+                    </div>
+                    <div class="col-container half-width">
+                        <label for="fax" class="form-control-label">Fax</label>
+                        <app-phone-number
+                            [required]="false"
+                            formControlName="fax"
+                        ></app-phone-number>
+                    </div>
+                </div>
+                <div class="row-container">
+                    <h4>Address</h4>
+                    <div class="col-container">
+                        <label for="address" class="form-control-label"
+                            >Address Line 1</label
+                        >
+                        <input
+                            formControlName="address"
+                            name="address"
+                            type="text"
+                            class="form-control form-control-custom"
+                            autocomplete="off"
+                            pInputText
+                        />
+                    </div>
+                    <div class="col-container">
+                        <label for="address2" class="form-control-label"
+                            >Address Line 2</label
+                        >
+                        <input
+                            formControlName="address2"
+                            name="address2"
+                            type="text"
+                            class="form-control form-control-custom"
+                            autocomplete="off"
+                            pInputText
+                        />
+                    </div>
+                    <div class="col-container">
+                        <label for="city" class="form-control-label"
+                            >City</label
+                        >
+                        <input
+                            formControlName="city"
+                            name="city"
+                            type="text"
+                            class="form-control form-control-custom"
+                            autocomplete="off"
+                            pInputText
+                        />
+                    </div>
+                    <div class="col-container">
+                        <label for="country" class="form-control-label"
+                            >Country</label
+                        >
+                        <p-dropdown
+                            [options]="countries.length > 0 ? countries : []"
+                            optionLabel="name"
+                            optionValue="code2"
+                            formControlName="country"
+                            [autoDisplayFirst]="false"
+                            appendTo="body"
+                        >
+                        </p-dropdown>
+                    </div>
+                    <div class="col-container">
+                        <label for="state" class="form-control-label"
+                            >State</label
+                        >
+                        <p-dropdown
+                            [options]="states.length > 0 ? states : []"
+                            optionLabel="name"
+                            optionValue="code"
+                            formControlName="state"
+                            [autoDisplayFirst]="false"
+                            appendTo="body"
+                        ></p-dropdown>
+                    </div>
+                    <div class="col-container">
+                        <label for="zipCode" class="form-control-label"
+                            >Zip/Postal Code</label
+                        >
+                        <input
+                            formControlName="zipCode"
+                            name="zipCode"
+                            type="text"
+                            class="form-control form-control-custom"
+                            autocomplete="off"
+                            pInputText
+                        />
+                    </div>
+                </div>
+                <div class="row-container">
+                    <div class="col-container half-width">
+                        <div class="img-container">
+                            <div class="file-container">
+                                <div class="img-container">
+                                    <img [src]="data.logoImgSrc" />
+                                </div>
+                                <div class="img-action-container">
+                                    <input
+                                        #fileInput
+                                        accept="image/*"
+                                        type="file"
+                                        (change)="onImageSelect($event)"
+                                    />
+                                    <div class="text-container">
+                                        <span>
+                                            Supported types: jpeg, jpg, png, gif
+                                        </span>
+                                    </div>
+                                    <button
+                                        pButton
+                                        (click)="fileInput.click()"
+                                        class="btn btn-primary"
+                                    >
+                                        Change Logo
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-container half-width">
+                        <div class="row-container">
+                            <div class="col-container full-width">
+                                <label
+                                    for="companyWebsite"
+                                    class="form-control-label"
+                                    >Website</label
+                                >
+                                <input
+                                    formControlName="companyWebsite"
+                                    name="companyWebsite"
+                                    type="text"
+                                    class="form-control form-control-custom"
+                                    autocomplete="off"
+                                    pInputText
+                                />
+                            </div>
+                            <div class="col-container full-width">
+                                <label
+                                    for="administrator"
+                                    class="form-control-label"
+                                    >Administrator</label
+                                >
+                                <input
+                                    formControlName="administrator"
+                                    name="administrator"
+                                    type="text"
+                                    class="form-control form-control-custom"
+                                    autocomplete="off"
+                                    pInputText
+                                />
+                            </div>
+                            <div class="col-container">
+                                <label for="timeZone" class="form-control-label"
+                                    >Time Zone</label
+                                >
+                                <p-dropdown
+                                    [options]="timezones || []"
+                                    optionLabel="value"
+                                    optionValue="abbr"
+                                    formControlName="timeZone"
+                                    [autoDisplayFirst]="false"
+                                    appendTo="body"
+                                ></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button
+                        pButton
+                        class="btn btn-primary"
+                        (click)="saveCompanyInfo()"
+                    >
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="content-container">
-        <form></form>
-    </div>
-</div>
+</ng-container>

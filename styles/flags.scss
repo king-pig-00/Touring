@@ -2,12 +2,11 @@ $flagHeight: 15px !default;
 $flagWidth: 20px !default;
 $flagPadding: 8px !default;
 .flag {
-    background: url('/assets/flags.png');
+    background: url('../src/assets/images/flags.png');
     box-shadow: 0px 0px 1px 0px #888;
     background-repeat: no-repeat;
     height: $flagHeight;
     width: $flagWidth;
-    // empty state
     background-color: #dbdbdb;
     background-position: $flagWidth 0;
 }

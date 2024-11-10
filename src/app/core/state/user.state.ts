@@ -19,6 +19,7 @@ import {
 
 import { AuthService, StorageService } from '../services';
 import { User } from '../models';
+import { UserApiService } from '../services/api/user.service';
 
 @Injectable({
     providedIn: 'root',
@@ -27,15 +28,17 @@ export class UserState {
     router = inject(Router);
     authService = inject(AuthService);
     storageService = inject(StorageService);
+    userService = inject(UserApiService);
     user$ = new BehaviorSubject<User | undefined>(undefined);
-
-    init() {}
 
     signin(email: string, password: string) {
         return lastValueFrom(this.authService.signin(email, password)).then(
             (res) => {
                 if (res.success) {
-                    this.storageService.setItem('authToken', res.data.token);
+                    this.storageService.setItem(
+                        'authToken',
+                        res.data.token ?? ''
+                    );
                     this.storageService.setItem(
                         'userName',
                         res.data.firstName + ' ' + res.data.lastName
@@ -76,5 +79,44 @@ export class UserState {
         this.storageService.clear();
         this.user$.next(undefined);
         this.router.navigate(['/home']);
+    }
+
+    getUserInfo(): Promise<User | undefined> {
+        if (this.user$.getValue()) {
+            return Promise.resolve(this.user$.getValue());
+        } else {
+            if (this.isLoadingUser) {
+                return lastValueFrom(
+                    this.user$.pipe(
+                        filter((user) => !!user),
+                        take(1)
+                    )
+                );
+            }
+            return this.loadUserInfo().then(() => {
+                return Promise.resolve(this.user$.getValue());
+            });
+        }
+    }
+
+    private isLoadingUser = false;
+    loadUserInfo(): Promise<User | undefined> {
+        this.isLoadingUser = true;
+        return lastValueFrom(
+            this.userService.getUser().pipe(map((res) => res.data))
+        )
+            .then((user) => {
+                console.log(user);
+                this.user$.next(user);
+                this.isLoadingUser = false;
+
+                return Promise.resolve(user);
+            })
+            .catch(() => {
+                this.isLoadingUser = false;
+
+                this.user$.next(undefined);
+                return Promise.resolve(undefined);
+            });
     }
 }

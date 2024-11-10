@@ -1,16 +1,18 @@
 export interface CompanyInfo {
     id: number;
     companyName: string;
-    companyDescription: string;
-    companyLogo: string;
-    countryId: number;
-    state: string;
-    city: string;
-    zipCode: string;
-    address: string;
-    fax: string;
     email: string;
+    companyDescription: string;
     generalPhone: string;
+    fax: string;
+    address: string;
+    address2: string;
+    city: string;
+    country: string;
+    state: string;
+    zipCode: string;
+    companyLogo: string;
     companyWebsite: string;
-    timeZone: number;
+    administrator: string;
+    timeZone: string;
 }

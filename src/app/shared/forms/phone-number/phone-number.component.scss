@@ -1,0 +1,45 @@
+.phonenumber-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .p-dropdown {
+        width: max-content;
+    }
+    input {
+        flex-grow: 1;
+        width: 100%;
+    }
+    .p-inputtext {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left-width: 0.5px;
+        &:hover {
+            border-left-width: 1px;
+        }
+    }
+    i {
+        position: absolute;
+        right: 1rem;
+        align-self: center;
+        font-size: 1rem;
+        color: var(--color-success);
+    }
+    .selected-container {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-2xs);
+    }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
