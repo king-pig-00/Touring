@@ -1,0 +1,45 @@
+<div class="phonenumber-container">
+    <p-dropdown
+        [options]="areaCodes || []"
+        class="areacode-dropdown"
+        [(ngModel)]="selectedCountry"
+        (ngModelChange)="areacodeChange()"
+        [filter]="true"
+        filterBy="name"
+        [disabled]="disabled"
+        optionLabel="name"
+    >
+        <ng-template pTemplate="selectedItem">
+            <div class="selected-container">
+                <div
+                    [class]="'flag flag__' + selectedCountry?.iso.toLowerCase()"
+                ></div>
+                <span>+{{ selectedCountry.areaCode }}</span>
+            </div>
+        </ng-template>
+        <ng-template let-country pTemplate="item">
+            <div class="option-container">
+                <div [class]="'flag flag__' + country.iso.toLowerCase()"></div>
+                <span>{{ country.name }} +{{ country.areaCode }}</span>
+            </div>
+        </ng-template>
+    </p-dropdown>
+    <input
+        [(ngModel)]="phoneNumber"
+        (ngModelChange)="phoneNumberChange()"
+        name="phoneNumber"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        type="number"
+        autocomplete="off"
+        pInputText
+        [disabled]="disabled"
+        [class.ng-valid]="isValid"
+        [class.ng-invalid]="!isValid"
+        [class.ng-dirty]="dirty"
+    />
+
+    <ng-container *ngIf="isValid && phoneNumber">
+        <i class="pi pi-check-circle"></i>
+    </ng-container>
+</div>

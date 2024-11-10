@@ -7,7 +7,6 @@ type StorageKeys = 'authToken' | 'userName' | 'redirectUrl';
 })
 export class StorageService {
     setItem(key: StorageKeys, value: string): void {
-        console.log(value);
         localStorage.setItem(key, value);
     }
 

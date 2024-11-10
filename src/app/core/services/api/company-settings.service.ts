@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { ApiRoutes, StorageService } from '@app/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ApiRoutes } from '@app/core';
 import { CompanyInfo } from '../../models';
 
 @Injectable({
@@ -8,13 +8,6 @@ import { CompanyInfo } from '../../models';
 })
 export class CompanySettingsApiService {
     private http = inject(HttpClient);
-    private storageService = inject(StorageService);
-
-    bearerToken = this.storageService.getItem('authToken');
-
-    headers = new HttpHeaders({
-        Authorization: `Bearer ${this.bearerToken}`,
-    });
 
     getCompanyInfo(companyId: number) {
         let params = new HttpParams();
@@ -24,18 +17,17 @@ export class CompanySettingsApiService {
             data: CompanyInfo;
             errors?: string[];
         }>(`${ApiRoutes.company}GetCompanyInfo`, {
-            headers: this.headers,
             params: params,
         });
     }
 
-    // saveCompanyInfo(config: CompanyInfoConfig) {
-    //     return this.http.post<{
-    //         success: boolean;
-    //         data: CompanyInfo;
-    //         error?: string;
-    //     }>(`${ApiRoutes.company}SaveCompanyInfo`, config);
-    // }
+    saveCompanyInfo(config: CompanyInfo) {
+        return this.http.post<{
+            success: boolean;
+            data: CompanyInfo;
+            error?: string;
+        }>(`${ApiRoutes.company}SaveCompanyInfo`, config);
+    }
 
     // getDepartmentsForCompany(companyID: string) {
     //     let params = new HttpParams();
