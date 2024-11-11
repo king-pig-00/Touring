@@ -1,5 +1,4 @@
 import { Route } from '@angular/router';
-import { AuthGuard, RoleGuard } from '@app/core';
 
 export const USER_ROUTES: Route[] = [
     {
