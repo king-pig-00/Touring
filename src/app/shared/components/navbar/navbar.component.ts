@@ -1,6 +1,6 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BehaviorSubject, lastValueFrom } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
