@@ -1,0 +1,41 @@
+.modal-inner-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    .modal-header {
+        position: sticky;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-2xs);
+        background-color: var(--color-white);
+        padding-bottom: 0;
+        padding-top: var(--spacing-sm);
+        z-index: 20;
+    }
+    h2 {
+        margin-bottom: 0;
+    }
+    .btn-container {
+        display: flex;
+        justify-content: flex-end;
+        gap: var(--spacing-2xs);
+        padding-top: var(--spacing-md);
+    }
+
+    .row-container {
+        display: flex;
+        flex-direction: row;
+        gap: var(--spacing-2xs);
+        .col-container {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
+
+::ng-deep .remove-department-modal > .p-dialog-content {
+    border-top: 5px solid var(--color-error);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}

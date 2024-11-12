@@ -1,0 +1,44 @@
+.content-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: var(--spacing-sm);
+
+    .action-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: var(--spacing-sm);
+        .expand-container,
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+            .btn-danger {
+                justify-content: center;
+            }
+        }
+    }
+
+    ::ng-deep p-tree {
+        width: 100%;
+    }
+    ::ng-deep p-tree .p-tree-container .p-treenode .p-treenode-content {
+        padding: 0.3rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .content-container {
+        .action-container {
+            flex-direction: column !important;
+            .expand-container,
+            .btn-container {
+                flex-direction: column !important;
+                width: 100% !important;
+                flex-grow: 1;
+            }
+        }
+    }
+}

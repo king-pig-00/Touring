@@ -1,5 +1,5 @@
 export interface CompanyInfo {
-    id: number;
+    companyId: number;
     companyName: string;
     email: string;
     companyDescription: string;
@@ -15,4 +15,11 @@ export interface CompanyInfo {
     companyWebsite: string;
     administrator: string;
     timeZone: string;
+}
+
+export interface DepartmentListItem {
+    departmentId: number;
+    companyId: number;
+    parentDepartmentId: number;
+    departmentName: string;
 }

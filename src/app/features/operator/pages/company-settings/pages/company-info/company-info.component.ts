@@ -114,7 +114,7 @@ export class CompanyInfoComponent {
                 this.companyInfoForm.patchValue({
                     ...companyInfo,
                 });
-                this.companyId = companyInfo.id;
+                this.companyId = companyInfo.companyId;
                 const logo = `data:image/png;base64, ${companyInfo.companyLogo}`;
                 this.logoImgSrc$.next(logo);
             }
@@ -153,7 +153,7 @@ export class CompanyInfoComponent {
         });
 
         this.companyInfoState.saveCompanyInfo({
-            id: this.companyId,
+            companyId: this.companyId,
             companyName: formValues.companyName ?? '',
             email: formValues.email ?? '',
             companyDescription: formValues.companyDescription ?? '',

@@ -1,4 +1,6 @@
+export { LoaderEmbedComponent } from './loader-embed/loader-embed.component';
 export { NavbarComponent } from './navbar/navbar.component';
+
 // export * from './inventory-calendar';
 // export * from './overlays';
 // export * from './forms';
