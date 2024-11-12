@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ApiRoutes } from '@app/core';
-import { CompanyInfo } from '../../models';
+import { CompanyInfo, DepartmentListItem } from '../../models';
 
 @Injectable({
     providedIn: 'root',
@@ -11,7 +11,7 @@ export class CompanySettingsApiService {
 
     getCompanyInfo(companyId: number) {
         let params = new HttpParams();
-        params = params.append('id', companyId);
+        params = params.append('companyId', companyId);
         return this.http.get<{
             success: boolean;
             data: CompanyInfo;
@@ -29,36 +29,36 @@ export class CompanySettingsApiService {
         }>(`${ApiRoutes.company}SaveCompanyInfo`, config);
     }
 
-    // getDepartmentsForCompany(companyID: string) {
-    //     let params = new HttpParams();
-    //     params = params.append('companyID', companyID);
-    //     return this.http.get<{
-    //         success: boolean;
-    //         data: CompanyDepartmentListItem[];
-    //         errors?: string[];
-    //     }>(`${ApiRoutes.company}GetDepartmentsForCompany`, {
-    //         params: params,
-    //     });
-    // }
-    // saveDepartment(config: CompanyDepartmentConfig) {
-    //     return this.http.post<{
-    //         success: boolean;
-    //         data: CompanyDepartmentListItem[];
-    //         error?: string;
-    //     }>(`${ApiRoutes.company}SaveDepartment`, config);
-    // }
+    getDepartmentList(companyId: number) {
+        let params = new HttpParams();
+        params = params.append('companyId', companyId);
+        return this.http.get<{
+            success: boolean;
+            data: DepartmentListItem[];
+            errors?: string[];
+        }>(`${ApiRoutes.company}GetDepartmentList`, {
+            params: params,
+        });
+    }
+    saveDepartment(config: DepartmentListItem) {
+        return this.http.post<{
+            success: boolean;
+            data: DepartmentListItem[];
+            error?: string;
+        }>(`${ApiRoutes.company}SaveDepartment`, config);
+    }
 
-    // deleteDepartment(id: number, isActive: boolean) {
-    //     const config = {
-    //         id,
-    //         isActive,
-    //     };
-    //     return this.http.post<{
-    //         success: boolean;
-    //         data: CompanyDepartmentListItem[];
-    //         error?: string;
-    //     }>(`${ApiRoutes.company}DeleteDepartment`, config);
-    // }
+    deleteDepartment(id: number, isActive: boolean) {
+        const config = {
+            id,
+            isActive,
+        };
+        return this.http.post<{
+            success: boolean;
+            data: DepartmentListItem[];
+            error?: string;
+        }>(`${ApiRoutes.company}DeleteDepartment`, config);
+    }
 
     // getPositionsForDepartment(companyID: string, departmentId: number) {
     //     let params = new HttpParams();

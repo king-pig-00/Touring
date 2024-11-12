@@ -1,0 +1,70 @@
+<ng-container
+    *ngIf="{
+        isOpen: (isOpen$ | async) || false,
+        status: status$ | async,
+        context: context$ | async,
+    } as data"
+>
+    <p-dialog
+        [(visible)]="data.isOpen"
+        (onHide)="close()"
+        [modal]="true"
+        [style]="{ width: '40vw', height: 'auto' }"
+        styleClass="edit-department-modal"
+        [breakpoints]="{ '700px': '100vw' }"
+        [showHeader]="false"
+        [draggable]="false"
+        [resizable]="false"
+        [dismissableMask]="true"
+        appendTo="body"
+    >
+        <ng-container *ngIf="data.context">
+            <div class="modal-inner-container">
+                <div class="modal-header">
+                    <h2>Edit Department : {{ data.context.departmentName }}</h2>
+                </div>
+                <p-divider></p-divider>
+                <form [formGroup]="editDepartmentForm">
+                    <div class="row-container">
+                        <div class="col-container">
+                            <label for="departmentName">Department Name</label>
+                            <input
+                                pInputText
+                                name="departmentName"
+                                formControlName="departmentName"
+                            />
+                        </div>
+                    </div>
+                    <div class="btn-container">
+                        <ng-container *ngIf="data.status === 'error'">
+                            <div>
+                                <span class="text-error"
+                                    >Failed to save Department</span
+                                >
+                            </div>
+                        </ng-container>
+
+                        <button
+                            pButton
+                            class="btn btn-primary"
+                            class="btn btn-primary-inverse"
+                            [disabled]="data.status === 'loading'"
+                            (click)="close()"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            pButton
+                            class="btn btn-primary"
+                            [loading]="data.status === 'loading'"
+                            [disabled]="data.status === 'loading'"
+                            (click)="save(data.context)"
+                        >
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </ng-container>
+    </p-dialog>
+</ng-container>

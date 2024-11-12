@@ -152,7 +152,13 @@
                         <div class="img-container">
                             <div class="file-container">
                                 <div class="img-container">
-                                    <img [src]="data.logoImgSrc" />
+                                    <img
+                                        *ngIf="
+                                            data.logoImgSrc &&
+                                            data.logoImgSrc.length > 25
+                                        "
+                                        [src]="data.logoImgSrc"
+                                    />
                                 </div>
                                 <div class="img-action-container">
                                     <input

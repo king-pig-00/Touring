@@ -1,1 +1,101 @@
-<p>departments works!</p>
+<ng-container
+    *ngIf="{
+        statuses: statuses$ | async,
+        treeData: treeData$ | async,
+    } as data"
+>
+    <div class="container">
+        <div class="header-container">
+            <h2>Departments</h2>
+        </div>
+        <div class="content-container">
+            <div class="action-container">
+                <div class="expand-container">
+                    <button
+                        pButton
+                        icon="pi pi-angle-double-down"
+                        class="btn btn-primary-inverse"
+                        type="button"
+                        [disabled]="
+                            data.statuses?.loadCompanyDepartments === 'loading'
+                        "
+                        (click)="expandAll()"
+                    >
+                        Expand all
+                    </button>
+                    <button
+                        pButton
+                        icon="pi pi-angle-double-up"
+                        class="btn btn-primary-inverse"
+                        type="button"
+                        [disabled]="
+                            data.statuses?.loadCompanyDepartments === 'loading'
+                        "
+                        (click)="collapseAll()"
+                    >
+                        Collapse all
+                    </button>
+                </div>
+                <div class="btn-container">
+                    <button
+                        pButton
+                        class="btn btn-primary"
+                        [disabled]="
+                            data.statuses?.loadCompanyDepartments ===
+                                'loading' || isActiveBtns
+                        "
+                        (click)="openAddChildDepartmentModal()"
+                    >
+                        Add Child Department
+                    </button>
+                    <button
+                        pButton
+                        class="btn btn-primary"
+                        [disabled]="
+                            data.statuses?.loadCompanyDepartments ===
+                                'loading' || isActiveBtns
+                        "
+                        (click)="editDepartmentModal()"
+                    >
+                        Edit Department
+                    </button>
+                    <button
+                        pButton
+                        class="btn btn-danger"
+                        [disabled]="
+                            data.statuses?.loadCompanyDepartments ===
+                                'loading' || isActiveBtns
+                        "
+                        (click)="openDeleteDepartmentModal()"
+                    >
+                        Remove Department
+                    </button>
+                </div>
+            </div>
+            <ng-container [ngSwitch]="data.statuses?.loadCompanyDepartments">
+                <ng-container *ngSwitchCase="'loading'">
+                    <app-loader-embed [isDisplayed]="true"></app-loader-embed>
+                </ng-container>
+                <ng-container *ngSwitchCase="'error'">
+                    <div class="error-state">
+                        <span>Error loading Departments</span>
+                        <button pButton (click)="refresh()">Retry</button>
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="'success'">
+                    <p-tree
+                        [value]="data.treeData"
+                        scrollHeight="60vh"
+                        selectionMode="single"
+                        [(selection)]="selectedNode"
+                        (onNodeSelect)="onNodeSelect($event)"
+                    />
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+</ng-container>
+<!-- modals -->
+<app-add-child-department-modal></app-add-child-department-modal>
+<app-edit-department-modal></app-edit-department-modal>
+<app-remove-department-modal></app-remove-department-modal>

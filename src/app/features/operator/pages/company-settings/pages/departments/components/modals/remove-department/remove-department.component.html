@@ -1,0 +1,65 @@
+<ng-container
+    *ngIf="{
+        isOpen: (isOpen$ | async) || false,
+        status: status$ | async,
+        context: context$ | async,
+    } as data"
+>
+    <p-dialog
+        [(visible)]="data.isOpen"
+        (onHide)="close()"
+        [modal]="true"
+        [style]="{ width: '40vw', height: 'auto' }"
+        styleClass="remove-department-modal"
+        [breakpoints]="{ '768px': '100vw' }"
+        [showHeader]="false"
+        [draggable]="false"
+        [resizable]="false"
+        [dismissableMask]="true"
+        appendTo="body"
+    >
+        <ng-container *ngIf="data.context">
+            <div class="modal-inner-container">
+                <div class="modal-header">
+                    <h2>Would you like to Delete this Department?</h2>
+                </div>
+                <p-divider></p-divider>
+                <div class="row-container">
+                    <div class="col-container">
+                        <span class="h4">Department Name</span>
+                        <span>
+                            {{ data.context.departmentName }}
+                        </span>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <ng-container *ngIf="data.status === 'error'">
+                        <div>
+                            <span class="text-error"
+                                >Failed to add Department</span
+                            >
+                        </div>
+                    </ng-container>
+                    <button
+                        pButton
+                        class="btn btn-primary-inverse"
+                        type="button"
+                        (click)="close()"
+                        [disabled]="data.status === 'loading'"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        pButton
+                        class="btn btn-danger"
+                        (click)="remove(data.context)"
+                        [loading]="data.status === 'loading'"
+                        [disabled]="data.status === 'loading'"
+                    >
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+    </p-dialog>
+</ng-container>
