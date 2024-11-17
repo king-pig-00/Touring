@@ -26,6 +26,8 @@ export class DepartmentsState {
     private initialized = false;
 
     init(): void {
+        this.updateStatus('loadCompanyDepartments', 'idle');
+        this.updateStatus('saveCompanyDepartment', 'idle');
         if (this.initialized) {
             return;
         }
@@ -63,38 +65,34 @@ export class DepartmentsState {
             return lastValueFrom(
                 this.companySettingsApiService.saveDepartment({
                     ...config,
-                    companyId: user?.companyId ?? 0,
                 })
             )
                 .then((res) => {
                     if (res.success) {
                         this.refresh();
                         this.updateStatus('saveCompanyDepartment', 'success');
-
                         return Promise.resolve();
                     } else {
+                        this.updateStatus('saveCompanyDepartment', 'error');
                         return Promise.reject(res.error);
                     }
                 })
-                .catch(() => {
+                .catch((error) => {
                     this.updateStatus('saveCompanyDepartment', 'error');
+                    return Promise.reject(error);
                 });
         });
     }
 
-    deleteDepartment(
-        equipmentTypeId: number,
-        isActive: boolean
-    ): Promise<void> {
+    deleteDepartment(orgId: number): Promise<void> {
         return lastValueFrom(
-            this.companySettingsApiService.deleteDepartment(
-                equipmentTypeId,
-                isActive
-            )
+            this.companySettingsApiService.deleteDepartment(orgId)
         ).then((res) => {
             if (!res.success) {
+                this.updateStatus('saveCompanyDepartment', 'error');
                 return Promise.reject(res.error);
             }
+            this.updateStatus('saveCompanyDepartment', 'success');
             this.refresh();
             return Promise.resolve();
         });

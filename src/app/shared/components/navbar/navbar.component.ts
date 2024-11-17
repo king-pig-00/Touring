@@ -32,15 +32,9 @@ export class NavbarComponent {
     @Output() menuButtonClick = new EventEmitter<void>();
     isAdmin$ = true;
     isAgent$ = false;
+    user$ = this.userState.user$
 
     userName$ = new BehaviorSubject<string | undefined>(undefined);
-
-    ngOnInit(): void {
-        const userName = this.storageService.getItem('userName');
-        if (userName) {
-            this.userName$.next(userName);
-        }
-    }
 
     login(): void {
         // this.authService.login();

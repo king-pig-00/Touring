@@ -40,7 +40,7 @@ export class DeleteDepartmentModalComponent {
     remove(config: DepartmentListItem): void {
         this.status$.next('loading');
         this.departmentsState
-            .deleteDepartment(config.departmentId, false)
+            .deleteDepartment(config.orgId)
             .then(() => {
                 this.status$.next('success');
                 this.close();

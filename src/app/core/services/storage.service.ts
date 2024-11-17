@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-type StorageKeys = 'authToken' | 'userName' | 'redirectUrl';
+type StorageKeys = 'authToken' | 'userName';
 
 @Injectable({
     providedIn: 'root',

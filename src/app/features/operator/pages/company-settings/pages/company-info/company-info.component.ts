@@ -6,6 +6,7 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
+import { Subject, takeUntil, BehaviorSubject } from 'rxjs';
 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -21,7 +22,6 @@ import {
 } from '@app/core';
 import { PhoneNumberComponent } from '@app/shared';
 import { CompanyInfoState } from './company-info.state';
-import { Subject, lastValueFrom, map, takeUntil, BehaviorSubject } from 'rxjs';
 
 @Component({
     standalone: true,
@@ -47,7 +47,8 @@ export class CompanyInfoComponent {
     countries: CountryList[] = [];
     states: StatesList[] = [];
     timezones: TimezoneList[] = [];
-    companyId: number = 0;
+    orgId: number = 0;
+    orgInfoId: number = 0;
     companyInfoForm = new FormGroup({
         companyName: new FormControl<string | null>(null, {
             validators: [Validators.required],
@@ -57,7 +58,7 @@ export class CompanyInfoComponent {
             validators: [Validators.required],
             nonNullable: true,
         }),
-        companyDescription: new FormControl<string | null>(null),
+        description: new FormControl<string | null>(null),
         generalPhone: new FormControl<string | null>(null),
         fax: new FormControl<string | null>(null),
         address: new FormControl<string | null>(null, {
@@ -80,7 +81,7 @@ export class CompanyInfoComponent {
             validators: [Validators.required],
             nonNullable: true,
         }),
-        companyWebsite: new FormControl<string | null>(null),
+        website: new FormControl<string | null>(null),
         administrator: new FormControl<string | null>(null),
         timeZone: new FormControl<string | null>(null, {
             validators: [Validators.required],
@@ -112,10 +113,12 @@ export class CompanyInfoComponent {
         this.companyInfoState.companyInfo$.subscribe((companyInfo) => {
             if (companyInfo) {
                 this.companyInfoForm.patchValue({
-                    ...companyInfo,
+                    companyName: companyInfo.orgName,
+                    ...companyInfo.info,
                 });
-                this.companyId = companyInfo.companyId;
-                const logo = `data:image/png;base64, ${companyInfo.companyLogo}`;
+                this.orgId = companyInfo.orgId;
+                this.orgInfoId = companyInfo.info.orgInfoId;
+                const logo = `data:image/png;base64, ${companyInfo.info.logo}`;
                 this.logoImgSrc$.next(logo);
             }
         });
@@ -153,22 +156,26 @@ export class CompanyInfoComponent {
         });
 
         this.companyInfoState.saveCompanyInfo({
-            companyId: this.companyId,
-            companyName: formValues.companyName ?? '',
-            email: formValues.email ?? '',
-            companyDescription: formValues.companyDescription ?? '',
-            generalPhone: formValues.generalPhone ?? '',
-            fax: formValues.fax ?? '',
-            address: formValues.address ?? '',
-            address2: formValues.address2 ?? '',
-            city: formValues.country ?? '',
-            country: formValues.country ?? '',
-            state: formValues.state ?? '',
-            zipCode: formValues.zipCode ?? '',
-            companyLogo: companyLogo,
-            companyWebsite: formValues.companyWebsite ?? '',
-            administrator: formValues.administrator ?? '',
-            timeZone: formValues.timeZone ?? '',
+            orgId: this.orgId,
+            orgName: formValues.companyName ?? '',
+            parentOrgId: 0,
+            info: {
+                orgInfoId: this.orgInfoId,
+                email: formValues.email ?? '',
+                description: formValues.description ?? '',
+                generalPhone: formValues.generalPhone ?? '',
+                fax: formValues.fax ?? '',
+                address: formValues.address ?? '',
+                address2: formValues.address2 ?? '',
+                city: formValues.country ?? '',
+                country: formValues.country ?? '',
+                state: formValues.state ?? '',
+                zipCode: formValues.zipCode ?? '',
+                logo: companyLogo,
+                website: formValues.website ?? '',
+                administrator: formValues.administrator ?? '',
+                timeZone: formValues.timeZone ?? '',
+            },
         });
     }
 
