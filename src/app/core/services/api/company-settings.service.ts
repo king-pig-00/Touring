@@ -48,16 +48,12 @@ export class CompanySettingsApiService {
         }>(`${ApiRoutes.company}SaveDepartment`, config);
     }
 
-    deleteDepartment(id: number, isActive: boolean) {
-        const config = {
-            id,
-            isActive,
-        };
+    deleteDepartment(orgId: number) {
         return this.http.post<{
             success: boolean;
             data: DepartmentListItem[];
             error?: string;
-        }>(`${ApiRoutes.company}DeleteDepartment`, config);
+        }>(`${ApiRoutes.company}DeleteDepartment`, {orgId});
     }
 
     // getPositionsForDepartment(companyID: string, departmentId: number) {

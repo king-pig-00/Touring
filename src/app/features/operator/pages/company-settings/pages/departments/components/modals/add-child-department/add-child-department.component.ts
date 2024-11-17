@@ -43,6 +43,7 @@ export class AddChildDepartmentModalComponent {
         map((modal) => modal.context)
     );
     status$ = new BehaviorSubject<UIStatus>('idle');
+    statuses$ = this.departmentsState.statuses$;
     addChildDepartmentForm = new FormGroup({
         departmentName: new FormControl<string | null>(null, {
             validators: [Validators.required],
@@ -64,10 +65,9 @@ export class AddChildDepartmentModalComponent {
         const formValues = this.addChildDepartmentForm.getRawValue();
         this.departmentsState
             .saveDepartment({
-                departmentId: 0,
-                departmentName: formValues.departmentName ?? '',
-                parentDepartmentId: config.departmentId,
-                companyId: 0,
+                orgId: -1,
+                orgName: formValues.departmentName ?? '',
+                parentOrgId: config.orgId,
             })
             .then(() => {
                 this.status$.next('success');
@@ -80,6 +80,7 @@ export class AddChildDepartmentModalComponent {
 
     close(): void {
         this.status$.next('idle');
+        this.addChildDepartmentForm.reset();
         this.uiState.closeAddChildDepartmentModal();
     }
 }

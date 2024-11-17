@@ -64,10 +64,9 @@ export class EditDepartmentModalComponent {
         const formValues = this.editDepartmentForm.getRawValue();
         this.departmentsState
             .saveDepartment({
-                departmentId: config.departmentId,
-                departmentName: formValues.departmentName ?? '',
-                parentDepartmentId: config.parentDepartmentId,
-                companyId: 0,
+                orgId: config.orgId,
+                orgName: formValues.departmentName ?? '',
+                parentOrgId: config.parentOrgId,
             })
             .then(() => {
                 this.status$.next('success');
@@ -80,6 +79,7 @@ export class EditDepartmentModalComponent {
 
     close(): void {
         this.status$.next('idle');
+        this.editDepartmentForm.reset();
         this.uiState.closeEditDepartmentModal();
     }
 }

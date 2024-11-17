@@ -7,14 +7,14 @@ import { ButtonModule } from 'primeng/button';
 import { TreeModule } from 'primeng/tree';
 import { TreeNode } from 'primeng/api';
 
+import { LoaderEmbedComponent } from '@app/shared';
+import { DepartmentListItem } from '@app/core';
 import { UIState, DepartmentsState } from './state';
 import {
     AddChildDepartmentModalComponent,
     EditDepartmentModalComponent,
     DeleteDepartmentModalComponent,
 } from './components';
-import { LoaderEmbedComponent } from '@app/shared';
-import { DepartmentListItem } from '@app/core';
 
 @Component({
     standalone: true,
@@ -59,24 +59,22 @@ export class DepartmentsComponent {
         const tree: TreeNode[] = [];
 
         departments.forEach((department) => {
-            map.set(department.departmentId, {
+            map.set(department.orgId, {
                 data: department,
-                label: department.departmentName,
+                label: department.orgName,
                 expanded: true,
                 children: [],
             });
         });
 
         departments.forEach((department) => {
-            if (department.parentDepartmentId) {
-                const parentNode = map.get(department.parentDepartmentId);
+            if (department.parentOrgId) {
+                const parentNode = map.get(department.parentOrgId);
                 if (parentNode) {
-                    parentNode.children?.push(
-                        map.get(department.departmentId)!
-                    );
+                    parentNode.children?.push(map.get(department.orgId)!);
                 }
             } else {
-                tree.push(map.get(department.departmentId)!);
+                tree.push(map.get(department.orgId)!);
             }
         });
 

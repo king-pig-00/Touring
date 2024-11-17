@@ -21,6 +21,13 @@
         }
     }
 
+    .error-state {
+        display: flex;
+        gap: var(--spacing-xs);
+        align-items: center;
+        color: var(--color-error);
+    }
+
     ::ng-deep p-tree {
         width: 100%;
     }

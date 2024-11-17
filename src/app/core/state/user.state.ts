@@ -39,14 +39,6 @@ export class UserState {
                         'authToken',
                         res.data.token ?? ''
                     );
-                    this.storageService.setItem(
-                        'userName',
-                        res.data.firstName + ' ' + res.data.lastName
-                    );
-                    this.storageService.setItem(
-                        'redirectUrl',
-                        res.data.redirectUrl ?? ''
-                    );
                     this.user$.next(res.data);
                     window.location.href = res.data.redirectUrl ?? '/user';
                     return Promise.resolve();
@@ -106,7 +98,6 @@ export class UserState {
             this.userService.getUser().pipe(map((res) => res.data))
         )
             .then((user) => {
-                console.log(user);
                 this.user$.next(user);
                 this.isLoadingUser = false;
 

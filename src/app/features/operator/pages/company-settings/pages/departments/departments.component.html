@@ -79,7 +79,7 @@
                 <ng-container *ngSwitchCase="'error'">
                     <div class="error-state">
                         <span>Error loading Departments</span>
-                        <button pButton (click)="refresh()">Retry</button>
+                        <button pButton (click)="refresh()" size="small">Retry</button>
                     </div>
                 </ng-container>
                 <ng-container *ngSwitchCase="'success'">

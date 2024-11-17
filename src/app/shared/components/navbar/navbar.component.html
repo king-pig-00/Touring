@@ -1,6 +1,7 @@
 <ng-container
     *ngIf="{
         userName: userName$ | async,
+        user: user$ | async,
     } as data"
 >
     <nav class="navbar-container">
@@ -26,11 +27,12 @@
                     <div class="avatar-container">
                         <i class="pi pi-user"></i>
                     </div>
-                    <ng-container *ngIf="data.userName">
+                    <ng-container *ngIf="data.user">
                         <div class="text-container">
-                            <span class="name">{{
-                                data.userName
-                            }}</span>
+                            <span class="name"
+                                >{{ data.user.firstName }}
+                                {{ data.user.lastName }}</span
+                            >
                             <span class="description">Top 10 developer</span>
                         </div>
                     </ng-container>
